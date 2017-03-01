@@ -1,0 +1,7 @@
+
+{
+    "directory":"web/vendor",
+    "strict-ssl": false,  
+    "http-proxy": "http://jvillalv:ApplePie1@proxy.autozone.com:8080",
+    "https-proxy": "https://jvillalv:ApplePie1@proxy.autozone.com:8043"
+}

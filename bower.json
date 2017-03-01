@@ -1,0 +1,19 @@
+{
+  "name": "storeops",
+  "description": "storeopsstyles",
+  "main": "",
+  "authors": [
+    "jvillalva"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "web/vendor"
+  ]
+}

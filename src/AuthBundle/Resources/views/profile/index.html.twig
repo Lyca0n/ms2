@@ -1,0 +1,30 @@
+{% extends 'layout/layout.html.twig' %}
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          {% if user.profilePicture %}
+            <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/' ~user.profilePicture)}}"></div>
+          {% else %}
+            <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/default.png')}}"></div>
+          {% endif %}
+          <div class="panel-body">
+              <h4><b>{{user.email}}</b></hh4>
+              <h4>{{user.username}}</h4>
+              <h4>Roles</h4>
+              <ul>
+                  {% for role in user.userRoles %}
+                      <li>{{ role.slug }}</li>
+                  {% endfor %}    
+              </ul>
+          </div>
+          <div class="panel-footer">
+              <a href="{{ url('password') }}" class="btn btn-danger">Change Password</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

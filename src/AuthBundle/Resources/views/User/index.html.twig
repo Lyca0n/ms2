@@ -1,0 +1,48 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}AuthBundle:User:index{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>User Management</h2>           
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 ">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Username </th>
+                        <th> Email </th>
+                        <th> Active </th>
+                        <th> Options </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users%}
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.isActive ? 'Yes':'No'}}</td>
+                            <td>
+                                <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                        <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                        <li><a href="{{ path('user_edit', {'id': user.id}) }}">Edit</a></li>  
+                                        <li><a href="{{ path('user_delete', {'id': user.id}) }}">Delete</a></li>  
+                                        <li><a href="{{ path('user_activation', {'id': user.id}) }}">Active {{user.isActive ? 'Yes':'No'}}</a></li> 
+                                        </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {%endfor%}    
+                </tbody>        
+            </table>   
+        </div>        
+    </div>            
+{% endblock %}
