@@ -29,7 +29,7 @@ class RoleController extends Controller
     public function createAction(Request $request){
         
         $role = new Role();
-        $em =  $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(RoleType::class, $role);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -40,7 +40,17 @@ class RoleController extends Controller
         }
         
         return $this->render(
-                        'AuthBundle:role:create.html.twig', array('form' => $form->createView())
+            'AuthBundle:role:create.html.twig', array('form' => $form->createView())
         );        
+    }
+    /**
+     * @Route("role/delete/{id}", name="role_delete")
+     */    
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository('AuthBundle:Role')->find($id);         
+        $em->remove($role);
+        $em->flush();
+        return $this->redirect($this->generateUrl('role'));        
     }
 }

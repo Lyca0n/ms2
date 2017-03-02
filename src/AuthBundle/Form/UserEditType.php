@@ -9,7 +9,6 @@
 namespace AuthBundle\Form;
 
 use AuthBundle\Entity\User;
-use AuthBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * Description of UserEditType
@@ -30,7 +28,6 @@ class UserEditType extends AbstractType{
     {
         $builder
             ->add('userRoles', EntityType::class, array('multiple'=> true, 'class' => 'AuthBundle\Entity\Role', 'choice_label' => 'slug','attr' => array('class'=>'form-control')))    
-            //->add('userRoles', CollectionType::class ,array('entry_type' => Role::class))    
             ->add('email', EmailType::class, array('attr' => array('class'=>'form-control')))
             ->add('username', TextType::class, array('attr' => array('class'=>'form-control')))
             ->add('active', CheckboxType::class, array('attr' => array('class'=>'checkbox')));

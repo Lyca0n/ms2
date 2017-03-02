@@ -2,10 +2,9 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
     
-admin:
-    resource: "@AdminBundle/Controller/"
+callcenter:
+    resource: "@CallcenterBundle/Controller/"
     type:     annotation
-       
 
 auth:
     resource: "@AuthBundle/Resources/config/routing.yml"

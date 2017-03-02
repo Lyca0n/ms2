@@ -17,6 +17,10 @@
                         <th> Username </th>
                         <th> Email </th>
                         <th> Active </th>
+                        <th> Last Seen </th>
+                        <th> Created </th>
+                        <th> Last Update </th>
+                        <th> Roles </th>
                         <th> Options </th>
                     </tr>
                 </thead>
@@ -27,6 +31,21 @@
                             <td>{{user.username}}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.isActive ? 'Yes':'No'}}</td>
+                            <td>{{user.lastLoginAt|date("m/d/Y") }}</td>
+                            <td>{{user.createdAt|date("m/d/Y") }}</td>
+                            <td>{{user.updatedAt|date("m/d/Y") }}</td>
+                            <td>
+                                <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                         {{user.userRoles | length}} <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">        
+                                            {% for role in user.userRoles %}
+                                                <li>{{role.slug}}</li> 
+                                            {% endfor %}    
+                                        </ul>
+                                </div>
+                            </td>            
                             <td>
                                 <div class="btn-group">
                                         <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
@@ -35,7 +54,7 @@
                                         <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
                                         <li><a href="{{ path('user_edit', {'id': user.id}) }}">Edit</a></li>  
                                         <li><a href="{{ path('user_delete', {'id': user.id}) }}">Delete</a></li>  
-                                        <li><a href="{{ path('user_activation', {'id': user.id}) }}">Active {{user.isActive ? 'Yes':'No'}}</a></li> 
+                                        <li><a href="{{ path('user_activation', {'id': user.id}) }}">Active {{ user.isActive ? 'No':'Yes'}}</a></li> 
                                         </ul>
                                 </div>
                             </td>

@@ -5,7 +5,6 @@ services:
 
 
 # user edit form
-    UserEditType:
-        class: AuthBundle\Form\UserEditType
-        tags:
-            - { name: form.type}
+    auth.authentication_event_listener:
+        class: AuthBundle\EventListener\AuthenticationEventListener
+        arguments: ['@router', '@security.token_storage', '@service_container']

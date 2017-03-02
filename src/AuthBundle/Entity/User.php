@@ -119,6 +119,22 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->updatedAt = new \DateTime("now");
     }
+    
+    public function setLastLoginAt(){
+        $this->lastLoginAt = new \DateTime('now');
+    }
+    
+    public function getLastLoginAt(){
+        return $this->lastLoginAt;
+    }
+    
+    public function getCreatedAt(){
+        return $this->lastLoginAt;
+    }
+    
+    public function getUpdatedAt(){
+        return $this->lastLoginAt;
+    }
 
     public function getUsername()
     {

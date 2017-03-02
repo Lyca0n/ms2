@@ -42,10 +42,10 @@ security:
             form_login:
                 login_path: login
                 check_path: login     
+                success_handler: auth.authentication_event_listener
             logout: 
                 path: logout
-                target: /
-             
+                target: /                                
             # activate different ways to authenticate
 
             # http_basic: ~
