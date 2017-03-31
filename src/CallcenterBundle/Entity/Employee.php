@@ -63,6 +63,10 @@ class Employee
      */
     private $hireDate;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AuthBundle\Entity\User", inversedBy="employee")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */    
 
     /**
      * Get id

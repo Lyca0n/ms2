@@ -90,6 +90,7 @@ doctrine:
                 mappings: 
                     AppBundle: ~
                     AuthBundle: ~
+                    CallcenterBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

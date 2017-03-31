@@ -1,11 +1,11 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-    
-callcenter:
-    resource: "@CallcenterBundle/Controller/"
-    type:     annotation
 
 auth:
     resource: "@AuthBundle/Resources/config/routing.yml"
     #prefix: /auth
+
+callcenter:
+    resource: "@CallcenterBundle/Resources/config/routing.yml"
+

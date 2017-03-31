@@ -95,7 +95,11 @@ class User implements AdvancedUserInterface, \Serializable
      * )
      */
     protected $userRoles;
-
+    
+    /**
+     * @ORM\OneToOne(targetEntity="CallcenterBundle\Entity\Employee")
+     */
+    private $employee;
     
 
     public function __construct()
@@ -118,6 +122,14 @@ class User implements AdvancedUserInterface, \Serializable
     public function onPreUpdate()
     {
         $this->updatedAt = new \DateTime("now");
+    }
+    
+    public function setEmployee($id){
+        $this->employeeId = $id;
+    }
+    
+    public function getEmployee(){
+        return $this->employeeId;
     }
     
     public function setLastLoginAt(){
