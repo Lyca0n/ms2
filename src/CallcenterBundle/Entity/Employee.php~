@@ -368,28 +368,4 @@ class Employee
     {
         return $this->position;
     }
-
-    /**
-     * Set serviceunit
-     *
-     * @param \CallcenterBundle\Entity\ServiceUnit $serviceunit
-     *
-     * @return Employee
-     */
-    public function setServiceunit(\CallcenterBundle\Entity\ServiceUnit $serviceunit = null)
-    {
-        $this->serviceunit = $serviceunit;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceunit
-     *
-     * @return \CallcenterBundle\Entity\ServiceUnit
-     */
-    public function getServiceunit()
-    {
-        return $this->serviceunit;
-    }
 }

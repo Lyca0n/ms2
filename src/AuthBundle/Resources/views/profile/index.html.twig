@@ -2,29 +2,56 @@
 {% block title %}User Profile{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
-          {% if user.profilePicture %}
-            <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/' ~user.profilePicture)}}"></div>
-          {% else %}
-            <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/default.png')}}"></div>
-          {% endif %}
-          <div class="panel-body">
-              <h4><b>{{user.email}}</b></hh4>
-              <h4>{{user.username}}</h4>
-              <h4>Roles</h4>
-              <ul>
-                  {% for role in user.userRoles %}
-                      <li>{{ role.slug }}</li>
-                  {% endfor %}    
-              </ul>
-          </div>
-          <div class="panel-footer">
-              <a href="{{ url('password') }}" class="btn btn-danger">Change Password</a>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                {% if user.profilePicture %}
+                    <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/' ~user.profilePicture)}}"></div>
+                    {% else %}
+                    <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/default.png')}}"></div>
+                    {% endif %}
+                <div class="panel-body">
+                    <h4><b>{{user.email}}</b></hh4>
+                        <h4>{{user.username}}</h4>
+                        <h4>Roles</h4>
+                        <div>
+                            {% for role in user.userRoles %}
+                               <span class="badge">{{ role.slug }}</span>
+                            {% endfor %}    
+                        </div>
+                        {% if user.employee %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Ignition ID</th>
+                                    <th>Firstname</th>
+                                    <th>Middlename</th>                                    
+                                    <th>Lastname</th>
+                                    <th>Hire Date</th>
+                                    <th>Supervisor</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ user.employee.mexid }}</td>
+                                    <td>{{ user.employee.ignitionid }}</td>
+                                    <td>{{ user.employee.firstname }}</td>
+                                    <td>{{ user.employee.middlename }}</td>
+                                    <td>{{ user.employee.lastname }}</td>
+                                    <td>{{ user.employee.hiredate|date("m/d/Y")  }}</td>
+                                    <td>{{ user.employee.supervisor.firstname}} &nbsp;{{ user.employee.supervisor.lastname }}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>  
+                        {% endif %}
+                </div>
+                <div class="panel-footer">
+                    <a href="{{ url('password') }}" class="btn btn-danger">Change Password</a>
+                </div>
+
+            </div>
         </div>
 
-    </div>
-</div>
-
-{% endblock %}
+    {% endblock %}

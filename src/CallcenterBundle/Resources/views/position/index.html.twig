@@ -1,42 +1,44 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}AuthBundle:Role:index{% endblock %}
-
+{% block title %}CallcenterBundle:Position:index{% endblock %}
 {% block body %}
 
     <div class="page-header">
-        <h2>Role Management</h2>           
+        <h2>Employee Position Management</h2>           
     </div>
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2 ">
-            <a href="{{ url('role_create')}}" class="btn btn-primary">New</a>
+            <a href="{{ url('position_create')}}" class="btn btn-primary">New</a>
             <table class="table table-striped">
                 <thead>
-                    <tr>                    
-                        <th> Role </th>
-                        <th> Slug </th>
-                        <th> Created_at </th>                       
+                    <tr>
+                        <th> Job code </th>
+                        <th> Name </th>
+                        <th> Description </th>
+                        <th> Paylevel </th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    {% for role in roles%}
+                    {% for position in positions %}
                         <tr>
-                            <td>{{role.name}}</td>
-                            <td>{{role.slug}}</td>
-                            <td>{{role.createdAt|date("m/d/Y") }}</td>
+                            <td>{{position.jobcode}}</td>
+                            <td>{{position.name}}</td>
+                            <td>{{position.description}}</td>
+                            <td>{{position.paylevel}}</td>
+                            
                             <td>
                                 <div class="btn-group">
                                         <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
                                         <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
-
-                                        <li><a href="{{ path('role_delete', {'id': role.id}) }}">Delete</a></li>
-                                        
+                                        <li><a href="{{ path('position_edit', {'id': position.id}) }}">Edit</a></li>  
+                                        <li><a href="{{ path('position_delete', {'id': position.id}) }}">Delete</a></li>  
                                         </ul>
                                 </div>
-                            </td>
+                            </td>                            
                         </tr>
                     {%endfor%}    
                 </tbody>        

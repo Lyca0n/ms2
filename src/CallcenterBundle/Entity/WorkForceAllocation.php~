@@ -35,7 +35,7 @@ class WorkForceAllocation
     private $segment;    
     
     /**
-     * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\Position", inversedBy="workforceallocations") 
+     * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\Postition", inversedBy="workforceallocations") 
      * @ORM\JoinColumn(name="position_id", referencedColumnName="id")
      **/
     private $position;        
@@ -97,29 +97,5 @@ class WorkForceAllocation
     public function getSegment()
     {
         return $this->segment;
-    }
-
-    /**
-     * Set position
-     *
-     * @param \CallcenterBundle\Entity\Postition $position
-     *
-     * @return WorkForceAllocation
-     */
-    public function setPosition(\CallcenterBundle\Entity\Postition $position = null)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return \CallcenterBundle\Entity\Postition
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 }

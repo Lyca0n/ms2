@@ -154,28 +154,4 @@ class Segment
     {
         return $this->workforceallocations;
     }
-
-    /**
-     * Add workforceallocation
-     *
-     * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocation
-     *
-     * @return Segment
-     */
-    public function addWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
-    {
-        $this->workforceallocations[] = $workforceallocation;
-
-        return $this;
-    }
-
-    /**
-     * Remove workforceallocation
-     *
-     * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocation
-     */
-    public function removeWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
-    {
-        $this->workforceallocations->removeElement($workforceallocation);
-    }
 }

@@ -285,38 +285,4 @@ class Position
     {
         return $this->updatedAt;
     }
-
-    /**
-     * Add workforceallocation
-     *
-     * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocation
-     *
-     * @return Position
-     */
-    public function addWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
-    {
-        $this->workforceallocations[] = $workforceallocation;
-
-        return $this;
-    }
-
-    /**
-     * Remove workforceallocation
-     *
-     * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocation
-     */
-    public function removeWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
-    {
-        $this->workforceallocations->removeElement($workforceallocation);
-    }
-
-    /**
-     * Get workforceallocations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getWorkforceallocations()
-    {
-        return $this->workforceallocations;
-    }
 }

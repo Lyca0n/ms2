@@ -25,7 +25,7 @@ class Department
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=60)
+     * @ORM\Column(name="name", type="string", length=25)
      */
     private $name;
 
@@ -55,15 +55,7 @@ class Department
      */
     protected $updatedAt;    
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->serviceunits = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
+        /**
      * @ORM\PrePersist
      */
     public function onPrePersist()
@@ -184,39 +176,5 @@ class Department
     public function getCostcenter()
     {
         return $this->costcenter;
-    }
-
-    /**
-     * Add serviceunit
-     *
-     * @param \CallcenterBundle\Entity\ServiceUnit $serviceunit
-     *
-     * @return Department
-     */
-    public function addServiceunit(\CallcenterBundle\Entity\ServiceUnit $serviceunit)
-    {
-        $this->serviceunits[] = $serviceunit;
-
-        return $this;
-    }
-
-    /**
-     * Remove serviceunit
-     *
-     * @param \CallcenterBundle\Entity\ServiceUnit $serviceunit
-     */
-    public function removeServiceunit(\CallcenterBundle\Entity\ServiceUnit $serviceunit)
-    {
-        $this->serviceunits->removeElement($serviceunit);
-    }
-
-    /**
-     * Get serviceunits
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getServiceunits()
-    {
-        return $this->serviceunits;
     }
 }

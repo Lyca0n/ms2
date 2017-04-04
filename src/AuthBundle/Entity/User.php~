@@ -20,8 +20,9 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 
 /**
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AuthBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -38,7 +39,6 @@ class User implements AdvancedUserInterface, \Serializable
     private $username;
     
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      * @Assert\Length(min=8)
      */
@@ -49,6 +49,27 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     *
+     * @var DateTime $createdAt
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     *
+     * @var DateTime $updatedAt
+     */
+    protected $updatedAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="last_login_at", nullable=true)
+     *
+     * @var DateTime $lastLoginAt
+     */
+    protected $lastLoginAt;
+    
     /**
      * @ORM\Column(type="string", length=240, nullable=true)
      */
@@ -65,22 +86,66 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Role")
+     * @var ArrayCollection $userRoles
+     * 
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
      * @ORM\JoinTable(name="user_role",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      * )
-     *
-     * @var ArrayCollection $userRoles
      */
     protected $userRoles;
-
+    
+    /**
+     * @ORM\OneToOne(targetEntity="CallcenterBundle\Entity\Employee", mappedBy="user")
+     */
+    private $employee;
     
 
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
 
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }
+    
+    public function setEmployee($id){
+        $this->employeeId = $id;
+    }
+    
+    public function getEmployee(){
+        return $this->employeeId;
+    }
+    
+    public function setLastLoginAt(){
+        $this->lastLoginAt = new \DateTime('now');
+    }
+    
+    public function getLastLoginAt(){
+        return $this->lastLoginAt;
+    }
+    
+    public function getCreatedAt(){
+        return $this->lastLoginAt;
+    }
+    
+    public function getUpdatedAt(){
+        return $this->lastLoginAt;
     }
 
     public function getUsername()
@@ -88,11 +153,10 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->username;
     }
 
-    //deprecated bcrypt does not require salt
+    
     public function getSalt()
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
+        
         return null;
     }    
 
@@ -294,7 +358,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->isActive;
     }
-
+    
     /**
      * Add userRole
      *

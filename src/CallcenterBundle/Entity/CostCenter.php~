@@ -223,38 +223,4 @@ class CostCenter
     {
         return $this->departments;
     }
-
-    /**
-     * Add stakeholder
-     *
-     * @param \CallcenterBundle\Entity\StakeHolder $stakeholder
-     *
-     * @return CostCenter
-     */
-    public function addStakeholder(\CallcenterBundle\Entity\StakeHolder $stakeholder)
-    {
-        $this->stakeholders[] = $stakeholder;
-
-        return $this;
-    }
-
-    /**
-     * Remove stakeholder
-     *
-     * @param \CallcenterBundle\Entity\StakeHolder $stakeholder
-     */
-    public function removeStakeholder(\CallcenterBundle\Entity\StakeHolder $stakeholder)
-    {
-        $this->stakeholders->removeElement($stakeholder);
-    }
-
-    /**
-     * Get stakeholders
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStakeholders()
-    {
-        return $this->stakeholders;
-    }
 }

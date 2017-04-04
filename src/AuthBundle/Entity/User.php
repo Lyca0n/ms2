@@ -97,7 +97,7 @@ class User implements AdvancedUserInterface, \Serializable
     protected $userRoles;
     
     /**
-     * @ORM\OneToOne(targetEntity="CallcenterBundle\Entity\Employee")
+     * @ORM\OneToOne(targetEntity="CallcenterBundle\Entity\Employee", mappedBy="user")
      */
     private $employee;
     
@@ -125,11 +125,11 @@ class User implements AdvancedUserInterface, \Serializable
     }
     
     public function setEmployee($id){
-        $this->employeeId = $id;
+        $this->employee = $id;
     }
     
     public function getEmployee(){
-        return $this->employeeId;
+        return $this->employee;
     }
     
     public function setLastLoginAt(){
@@ -391,5 +391,33 @@ class User implements AdvancedUserInterface, \Serializable
     public function getUserRoles()
     {
         return $this->userRoles;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

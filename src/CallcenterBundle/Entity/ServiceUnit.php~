@@ -235,38 +235,4 @@ class ServiceUnit
     {
         return $this->stakeholder;
     }
-
-    /**
-     * Add segment
-     *
-     * @param \CallcenterBundle\Entity\Segment $segment
-     *
-     * @return ServiceUnit
-     */
-    public function addSegment(\CallcenterBundle\Entity\Segment $segment)
-    {
-        $this->segments[] = $segment;
-
-        return $this;
-    }
-
-    /**
-     * Remove segment
-     *
-     * @param \CallcenterBundle\Entity\Segment $segment
-     */
-    public function removeSegment(\CallcenterBundle\Entity\Segment $segment)
-    {
-        $this->segments->removeElement($segment);
-    }
-
-    /**
-     * Get segments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSegments()
-    {
-        return $this->segments;
-    }
 }
