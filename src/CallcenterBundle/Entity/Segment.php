@@ -3,12 +3,16 @@
 namespace CallcenterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Segment
  *
  * @ORM\Table(name="segment")
  * @ORM\Entity(repositoryClass="CallcenterBundle\Repository\SegmentRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("name")
  */
 class Segment
 {
@@ -23,7 +27,8 @@ class Segment
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max=25)
      * @ORM\Column(name="name", type="string", length=25)
      */
     private $name;
@@ -44,6 +49,37 @@ class Segment
      * @ORM\OneToMany(targetEntity="CallcenterBundle\Entity\WorkForceAllocation", mappedBy="segment")
      */
     private $workforceallocations;    
+    
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     *
+     * @var DateTime $createdAt
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     *
+     * @var DateTime $updatedAt
+     */
+    protected $updatedAt;    
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }    
     
     public function __construct() {
         $this->workforceallocations = new \Doctrine\Common\Collections\ArrayCollection();
@@ -108,30 +144,6 @@ class Segment
     }
 
     /**
-     * Set serviceunit
-     *
-     * @param \CallcenterBundle\Entity\Serviceunit $serviceunit
-     *
-     * @return Segment
-     */
-    public function setServiceunit(\CallcenterBundle\Entity\Serviceunit $serviceunit = null)
-    {
-        $this->serviceunit = $serviceunit;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceunit
-     *
-     * @return \CallcenterBundle\Entity\Serviceunit
-     */
-    public function getServiceunit()
-    {
-        return $this->serviceunit;
-    }
-
-    /**
      * Set workforceallocations
      *
      * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocations
@@ -177,5 +189,77 @@ class Segment
     public function removeWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
     {
         $this->workforceallocations->removeElement($workforceallocation);
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Segment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Segment
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set serviceunit
+     *
+     * @param \CallcenterBundle\Entity\ServiceUnit $serviceunit
+     *
+     * @return Segment
+     */
+    public function setServiceunit(\CallcenterBundle\Entity\ServiceUnit $serviceunit = null)
+    {
+        $this->serviceunit = $serviceunit;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceunit
+     *
+     * @return \CallcenterBundle\Entity\ServiceUnit
+     */
+    public function getServiceunit()
+    {
+        return $this->serviceunit;
     }
 }

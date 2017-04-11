@@ -5,110 +5,142 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}MIS{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="files/favicon.ico" />
-        
-        <!-- Styles -->
-        <link href="/css/app.css" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="files/favicon.ico" />
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    </head>
-    <body>
-        <div id="app">
-            <nav class="navbar navbar-default navbar-static-top">
-                <div class="container-fluid">
-                    <div class="navbar-header">
+    <!-- Styles -->
+    <link href="/css/app.css" rel="stylesheet">
 
-                        <!-- Collapsed Hamburger -->
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
 
-                        <!-- Branding Image -->
-                        <a class="navbar-brand" href="{{ url('home') }}"><img style="max-width:200px; margin-top: -4px;" src="/files/AutoZone_logo.png"></a>
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-                    </div>
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('home') }}"><img style="max-width:200px; margin-top: -4px;" src="/files/AutoZone_logo.png"></a>
 
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="nav navbar-nav">
-                                <li><a href="{{ url('home') }}">Home</a></li>
-                        </ul>
-
-                        <!-- Right Side Of Navbar -->
-                        <ul class="nav navbar-nav navbar-right">
-                            <!-- Authentication Links -->
-                            {% if app.user %}
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ app.user.username }} <span class="caret"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li> <a href="{{ url('profile') }}"> Profile </a> </li>
-                                        <li> <a href="{{ url('logout') }}"> Logout </a> </li>
-                                    </ul>
-                                            
-                                </li>  
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        System <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="{{ url('user') }}">Users</a>
-                                            <a href="{{ url('role') }}">Roles</a>                                                                                      
-                                        </li>
-                                    </ul>                                            
-                                </li>    
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        Callcenter <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="{{ url('employee') }}">Employees</a>
-                                            <a href="{{ url('position') }}">Positions</a>                                                    
-                                            <a href="{{ url('unit') }}">Service Units</a>      
-                                            <a href="{{ url('channel') }}">Channels</a>                                                                                         
-                                        </li>
-                                    </ul>                                            
-                                </li>         
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        Administration <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>    
-                                            <a href="{{ url('department') }}">Departments</a>                                               
-                                            <a href="{{ url('costcenter') }}">Cost Centers</a>                                              
-                                        </li>
-                                    </ul>                                            
-                                </li>                                 
-                                
-                            {% else %}
-                                <li><a href="{{ url('login') }}">Login</a></li>
-                                <li><a href="{{ url('register') }}">Register</a></li>
-                                <!--<li><a href="">Register</a></li>-->
-                            {% endif %}
-
-                        </ul>
-                    </div>
                 </div>
-            </nav>
 
-        </div>
-        <div class="container-fluid">                
-        {% block body %}{% endblock %}
-        </div>
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted"><b>© 2016 AutoZone, Inc. All Rights Reserved.</b></span>
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('home') }}">Home</a></li>
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        {% if app.user %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ app.user.username }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li> <a href="{{ url('profile') }}"> Profile </a> </li>
+                                    <li> <a href="{{ url('logout') }}"> Logout </a> </li>
+                                </ul>
+
+                            </li>  
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    System <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ url('user') }}">Users</a>
+                                        <a href="{{ url('role') }}">Roles</a>                                                                                      
+                                    </li>
+                                </ul>                                            
+                            </li>                       
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Callcenter <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">                                    
+                                    <li>
+                                        <a href="{{ url('employee') }}">Employees</a>
+                                        <a href="{{ url('position') }}">Positions</a>                                                    
+                                        <a href="{{ url('unit') }}">Service Units</a>      
+                                        <a href="{{ url('channel') }}">Channels</a>  
+                                        <a href="{{ url('segment') }}">Segments</a>                                              
+                                        <a href="{{ url('workforce') }}">Work Force</a>                                          
+                                        <a href="{{ url('department') }}">Departments</a>  
+                                        <a href="{{ url('stakeholder') }}">Stake Holders</a>                                                
+                                        <a href="{{ url('costcenter') }}">Cost Centers</a>                                                                                    
+
+                                    </li>
+                                </ul>                                            
+                            </li> 
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Applications<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">                                    
+                                    <li>
+                                        <a href="#">Stores</a>
+                                        <a href="#">Communications</a>                                                    
+                                        <a href="#">Attendance</a>      
+                                        <a href="#">Calendar</a>  
+                                        <a href="#">Dashboard</a>                                              
+                                        <a href="#">Quality Assurance</a>                                          
+                                        <a href="#">Trainning</a>  
+                                        <a href="#">Team Lead Planner</a>                                                
+                                        <a href="#">Tickets</a>                                                                                    
+                                    </li>
+                                </ul>                                            
+                            </li>    
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Reports<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">                                    
+                                    <li>
+                                        <a href="#">AAE ticket report</a>                                                                                                                                                                      
+                                    </li>
+                                </ul>                                            
+                            </li>                              
+                        {% else %}
+                            <li><a href="{{ url('login') }}">Login</a></li>
+                            <li><a href="{{ url('register') }}">Register</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
             </div>
-        </footer>
-        {% block javascripts %}{% endblock %}
-        <script src="/js/app.js" type="text/javascript"></script>
-    </body>
+        </nav>
+
+    </div>
+    <div class="container-fluid">                
+    {% block body %}{% endblock %}
+</div>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"><b>© 2016 AutoZone, Inc. All Rights Reserved.</b></span>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>     
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>     
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('.datatable').DataTable();
+    });
+</script>        
+{% block javascripts %}{% endblock %}
+
+</body>
 </html>

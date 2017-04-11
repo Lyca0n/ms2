@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Description of User
@@ -23,6 +25,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AuthBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -34,12 +38,15 @@ class User implements AdvancedUserInterface, \Serializable
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=25)
      * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
     
     /**
-     * @Assert\Length(max=4096)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=28)
      * @Assert\Length(min=8)
      */
     private $plainPassword;
@@ -71,11 +78,8 @@ class User implements AdvancedUserInterface, \Serializable
     protected $lastLoginAt;
     
     /**
-     * @ORM\Column(type="string", length=240, nullable=true)
-     */
-    private $profilePicture;
-    
-    /**
+     * @Assert\NotBlank()
+     * @Assert\Email()
      * @ORM\Column(type="string", length=180, unique=true, options={"default" : "default.png"})
      */
     private $email;
@@ -141,11 +145,11 @@ class User implements AdvancedUserInterface, \Serializable
     }
     
     public function getCreatedAt(){
-        return $this->lastLoginAt;
+        return $this->createdAt;
     }
     
     public function getUpdatedAt(){
-        return $this->lastLoginAt;
+        return $this->updatedAt;
     }
 
     public function getUsername()
@@ -173,11 +177,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function getplainPassword()
     {
         return $this->plainPassword;
-    }
-    
-    public function getPicture()
-    {
-        return $this->profilePicture;
     }
 
     public function getRoles()
@@ -263,20 +262,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Set profilePicture
-     *
-     * @param string $profilePicture
-     *
-     * @return User
-     */
-    public function setProfilePicture($profilePicture)
-    {
-        $this->profilePicture = $profilePicture;
 
         return $this;
     }
@@ -419,5 +404,17 @@ class User implements AdvancedUserInterface, \Serializable
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+    
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {        
+        if (substr($this->getEmail(),strpos($this->getEmail(),'@')) != '@autozone.com') {
+            $context->buildViolation('you must enter your autozone email address')
+                ->atPath('email')
+                ->addViolation();
+        }      
     }
 }

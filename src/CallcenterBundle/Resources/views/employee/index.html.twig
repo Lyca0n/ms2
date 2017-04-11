@@ -7,11 +7,14 @@
     <div class="page-header">
         <h2>Employee Management</h2>           
     </div>
-
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 ">
-            <a href="{{ url('employee_create')}}" class="btn btn-primary">New</a>
-            <table class="table table-striped">
+        <div class="col-md-10 col-md-offset-1 ">            
+            <a href="{{ url('employee_create')}}" class="btn btn-primary">New</a> 
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">                        
+            <table id="employee" class="table table-striped">
                 <thead>
                     <tr>
                         <th> employee ID </th>
@@ -40,28 +43,29 @@
                             <td>{{employee.hiredate|date("m/d/Y") }}</td>
                             <td>{% if employee.supervisor %}{{employee.supervisor.firstname }}&nbsp;{{employee.supervisor.lastname}}{% endif %}</td> 
                             <td>
-                            {% if employee.subordinate|length > 0%}                                
-                                <div class="btn-group">
+                                {% if employee.subordinate|length > 0%}                                
+                                    <div class="btn-group">
                                         <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
-                                        subordinates<span class="caret"></span>
+                                            subordinates<span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">        
                                             {% for emp in employee.subordinate %}
                                                 <li>{{emp.firstname}}&nbsp;{{emp.lastname}}</li> 
-                                            {% endfor %}    
+                                                {% endfor %}    
                                         </ul>
-                                </div>
-                            {% endif %}                                        
+                                    </div>
+                                {% endif %}                                        
                             </td> 
                             <td>
                                 <div class="btn-group">
-                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
                                         <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                    </button>
+                                    <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                        <li><a href="{{ path('employee_show', {'id': employee.id}) }}">View</a></li>  
                                         <li><a href="{{ path('employee_edit', {'id': employee.id}) }}">Edit</a></li>  
                                         <li><a href="{{ path('employee_delete', {'id': employee.id}) }}">Delete</a></li>  
-                                        </ul>
+                                    </ul>
                                 </div>
                             </td>                            
                         </tr>
@@ -70,4 +74,7 @@
             </table>   
         </div>        
     </div>            
+{% endblock %}
+{% block javascripts %}
+
 {% endblock %}

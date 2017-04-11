@@ -1,0 +1,83 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>Employee Profile</h2>           
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">                        
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">profile</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if employee.profilePicture %}
+                                <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/employee/' ~employee.profilePicture)}}"></div>
+                            {% else %}
+                                <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/default.png')}}"></div>
+                            {% endif %}                               
+                        </div>
+                        <div class="col-md-6">                            
+                        </div>
+                    </div>
+                 
+                </div>
+                <table id="users" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> employee ID </th>
+                            <th> Ignition ID </th>
+                            <th> Name </th>
+                            <th> Hire date </th>
+                            <th> user ID </th>
+                            <th> Supervisor </th>
+                            <th> Subordinates </th>
+                            <th> Position </th>
+                            <th> Service unit </th>
+                            <th> Is active </th>                            
+                            <th> Created at </th>
+                            <th> Updated at </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ employee.mexid }}</td>
+                            <td>{{ employee.ignitionid }}</td>                                
+                            <td>{{ employee.firstname }} &nbsp;{{ employee.lastname }}</td>
+                            <td>{{ employee.hiredate|date("m/d/Y")}}</td>
+                            <td>{% if employee.user %}{{employee.user.username }}{% endif %}</td>
+                            <td>{% if employee.supervisor %}{{employee.supervisor.firstname }}&nbsp;{{employee.supervisor.lastname}}{% endif %}</td>
+                            <td>
+                                {% if employee.subordinate|length > 0 %}                                
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                            subordinates<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">        
+                                            {% for emp in employee.subordinate %}
+                                                <li>{{emp.firstname}}&nbsp;{{emp.lastname}}</li> 
+                                                {% endfor %}    
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    0
+                                {% endif %}                                        
+                            </td>     
+                            <td>{% if employee.position %}{{employee.position.name }}{% endif %}</td>    
+                            <td>{% if employee.serviceunit %}{{employee.serviceunit.name }}{% endif %}</td>    
+                            <td>{{employee.isActive ? 'Yes':'No'}}</td>                            
+                            <td>{{employee.createdAt|date("m/d/Y") }}</td>
+                            <td>{{employee.updatedAt|date("m/d/Y") }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>            
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

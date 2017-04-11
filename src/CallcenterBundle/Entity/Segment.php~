@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="segment")
  * @ORM\Entity(repositoryClass="CallcenterBundle\Repository\SegmentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Segment
 {
@@ -44,6 +45,37 @@ class Segment
      * @ORM\OneToMany(targetEntity="CallcenterBundle\Entity\WorkForceAllocation", mappedBy="segment")
      */
     private $workforceallocations;    
+    
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     *
+     * @var DateTime $createdAt
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     *
+     * @var DateTime $updatedAt
+     */
+    protected $updatedAt;    
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }    
     
     public function __construct() {
         $this->workforceallocations = new \Doctrine\Common\Collections\ArrayCollection();
@@ -108,30 +140,6 @@ class Segment
     }
 
     /**
-     * Set serviceunit
-     *
-     * @param \CallcenterBundle\Entity\Serviceunit $serviceunit
-     *
-     * @return Segment
-     */
-    public function setServiceunit(\CallcenterBundle\Entity\Serviceunit $serviceunit = null)
-    {
-        $this->serviceunit = $serviceunit;
-
-        return $this;
-    }
-
-    /**
-     * Get serviceunit
-     *
-     * @return \CallcenterBundle\Entity\Serviceunit
-     */
-    public function getServiceunit()
-    {
-        return $this->serviceunit;
-    }
-
-    /**
      * Set workforceallocations
      *
      * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocations
@@ -153,5 +161,29 @@ class Segment
     public function getWorkforceallocations()
     {
         return $this->workforceallocations;
+    }
+
+    /**
+     * Add workforceallocation
+     *
+     * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocation
+     *
+     * @return Segment
+     */
+    public function addWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
+    {
+        $this->workforceallocations[] = $workforceallocation;
+
+        return $this;
+    }
+
+    /**
+     * Remove workforceallocation
+     *
+     * @param \CallcenterBundle\Entity\WorkForceAllocation $workforceallocation
+     */
+    public function removeWorkforceallocation(\CallcenterBundle\Entity\WorkForceAllocation $workforceallocation)
+    {
+        $this->workforceallocations->removeElement($workforceallocation);
     }
 }

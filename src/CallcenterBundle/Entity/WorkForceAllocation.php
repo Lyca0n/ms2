@@ -106,7 +106,7 @@ class WorkForceAllocation
      *
      * @return WorkForceAllocation
      */
-    public function setPosition(\CallcenterBundle\Entity\Postition $position = null)
+    public function setPosition(\CallcenterBundle\Entity\Position $position = null)
     {
         $this->position = $position;
 

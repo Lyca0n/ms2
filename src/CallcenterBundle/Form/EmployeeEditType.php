@@ -23,7 +23,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  *
  * @author jvillalv
  */
-class EmployeeType extends AbstractType {
+class EmployeeEditType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
@@ -32,14 +32,6 @@ class EmployeeType extends AbstractType {
                 ->add('firstname', TextType::class, array('attr' => array('class' => 'form-control')))
                 ->add('middlename', TextType::class, array('attr' => array('class' => 'form-control'), 'required' => false))
                 ->add('lastname', TextType::class, array('attr' => array('class' => 'form-control')))
-                ->add('isactive', ChoiceType::class, array(
-                    'attr' => array('class' => 'form-control'),
-                    'label' => 'Is this Employee active?',
-                    'choices' => array(
-                        'Yes' => true,
-                        'No' => false,
-                    ),
-                ))
                 ->add('hiredate', DateType::class, array('attr' => array('class' => 'form-control'), 'years' => range(date('Y') - 18, date('Y') + 18)))
                 ->add('supervisor', EntityType::class, array('multiple' => false, 'class' => 'CallcenterBundle\Entity\Employee', 'required' => false, 'placeholder' => 'Choose an option', 'choice_label' => function ($employee) {
                         return $employee->getFirstName() . ' ' . $employee->getLastName();
@@ -49,8 +41,7 @@ class EmployeeType extends AbstractType {
                     }, 'attr' => array('class' => 'form-control')))
                 ->add('serviceunit', EntityType::class, array('multiple' => false, 'class' => 'CallcenterBundle\Entity\ServiceUnit', 'choice_label' => function ($su) {
                         return $su->getName();
-                    }, 'attr' => array('class' => 'form-control')))
-                ->add('profilepicture', FileType::class, array('label' => 'Profile picture'));
+                    }, 'attr' => array('class' => 'form-control')));
     }
 
     public function configureOptions(OptionsResolver $resolver) {

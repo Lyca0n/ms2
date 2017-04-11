@@ -5,6 +5,8 @@ namespace AuthBundle\Entity;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="role")
  * @ORM\Entity(repositoryClass="AuthBundle\Repository\RoleRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("name")
+ * 
 */
 class Role implements RoleInterface
 {
@@ -25,8 +29,8 @@ class Role implements RoleInterface
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *
+     * @ORM\Column(type="string", length=255, unique=true)
+     * 
      * @var string $name
      */
     protected $name;
@@ -51,6 +55,23 @@ class Role implements RoleInterface
      * @ORM\ManyToMany(targetEntity="AuthBundle\Entity\User", mappedBy="userRoles")
     */
     protected $users;
+    
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {        
+        if (substr($this->getName(),0,4) != 'ROLE') {
+            $context->buildViolation('Role name should start with the prefix ROLE_')
+                ->atPath('name')
+                ->addViolation();
+        }
+        if(!ctype_upper(str_replace('_', '', $this->getName()))){
+            $context->buildViolation('Role name should be in uppercase')
+                ->atPath('name')
+                ->addViolation();
+        }        
+    }
     
     /**
      * 

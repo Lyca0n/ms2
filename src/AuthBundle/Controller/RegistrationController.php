@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /**
  * Description of RegistrationController
  *
@@ -36,34 +35,44 @@ class RegistrationController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Encode the password (you could also do this via Doctrine listener)
+            // 3) Encode the password 
             $password = $this->get('security.password_encoder')
                     ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
-            // 4) save the User!
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            try {
+                // 4) save the User!
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-            
-            $message = \Swift_Message::newInstance()
-                    ->setSubject('AZ MIS Sign Up confirmation')
-                    ->setFrom('cs.operations.desk@autozone.com')
-                    ->setTo($user->getEmail())
-                    ->setBody(
-                            $this->renderView(
-                                    // app/Resources/views/Emails/registration.html.twig
-                                    'AuthBundle:email:register.html.twig', array('name' => $user->getUsername())
-                            ), 'text/html'
-                    )
+                // ... do any other work - like sending them an email, etc
+                // maybe set a "flash" success message for the user
 
-            ;
-            $this->get('mailer')->send($message);
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('AZ MIS Sign Up confirmation')
+                        ->setFrom('cs.operations.desk@autozone.com')
+                        ->setTo($user->getEmail())
+                        ->setBody(
+                        $this->renderView(
+                                // app/Resources/views/Emails/registration.html.twig
+                                'AuthBundle:email:register.html.twig', array('name' => $user->getUsername())
+                        ), 'text/html'
+                        )
 
-            return $this->redirectToRoute('home');
+                ;
+                $this->get('mailer')->send($message);
+
+                return $this->redirectToRoute('home');
+            } catch (\Doctrine\DBAL\ORMException $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirect($this->getRequest()->headers->get('referer'));
+            }
+            catch (\Exception $e) {
+                // flash msg
+                $this->addFlash('error', $e->getMessage());
+
+            }
         }
 
         return $this->render(

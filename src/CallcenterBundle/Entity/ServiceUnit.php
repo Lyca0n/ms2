@@ -38,16 +38,10 @@ class ServiceUnit
     /**
      * @var string
      *
-     * @ORM\Column(name="contact", type="string", length=255)
+     * @ORM\Column(name="contact", type="string", length=255, nullable=true)
      */
     private $contact;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\Department", inversedBy="serviceunits") 
-     * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
-     **/
-    private $department;
-
     /**
      * 
      * @ORM\OneToMany(targetEntity="CallcenterBundle\Entity\Employee", mappedBy="serviceunit")
@@ -58,7 +52,13 @@ class ServiceUnit
      * 
      * @ORM\OneToMany(targetEntity="CallcenterBundle\Entity\Segment", mappedBy="serviceunit")
      */
-    private $segments;      
+    private $segments;   
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\Department", inversedBy="serviceunits") 
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
+     **/
+    private $department;    
     
     /**
      * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\StakeHolder", inversedBy="serviceunits") 
@@ -215,11 +215,11 @@ class ServiceUnit
     /**
      * Set stakeholder
      *
-     * @param \CallcenterBundle\Entity\CostCenter $stakeholder
+     * @param \CallcenterBundle\Entity\StakeHolder $stakeholder
      *
      * @return ServiceUnit
      */
-    public function setStakeholder(\CallcenterBundle\Entity\CostCenter $stakeholder = null)
+    public function setStakeholder(\CallcenterBundle\Entity\StakeHolder $stakeholder = null)
     {
         $this->stakeholder = $stakeholder;
 

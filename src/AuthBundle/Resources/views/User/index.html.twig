@@ -9,11 +9,10 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 ">
-            <table class="table table-striped">
+        <div class="col-md-10 col-md-offset-1 ">
+            <table id="users" class="table table-striped">
                 <thead>
                     <tr>
-                        <th> ID </th>
                         <th> Username </th>
                         <th> Email </th>
                         <th> Active </th>
@@ -27,7 +26,7 @@
                 <tbody>
                     {% for user in users%}
                         <tr>
-                            <td>{{user.id}}</td>
+
                             <td>{{user.username}}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.isActive ? 'Yes':'No'}}</td>
@@ -36,26 +35,31 @@
                             <td>{{user.updatedAt|date("m/d/Y") }}</td>
                             <td>
                                 <div class="btn-group">
-                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
-                                         {{user.userRoles | length}} <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">        
-                                            {% for role in user.userRoles %}
-                                                <li>{{role.slug}}</li> 
+                                    <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                        {{user.userRoles | length}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">        
+                                        {% for role in user.userRoles %}
+                                            <li>{{role.slug}}</li> 
                                             {% endfor %}    
-                                        </ul>
+                                    </ul>
                                 </div>
                             </td>            
                             <td>
                                 <div class="btn-group">
-                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
                                         <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                    </button>
+                                    <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
                                         <li><a href="{{ path('user_edit', {'id': user.id}) }}">Edit</a></li>  
                                         <li><a href="{{ path('user_delete', {'id': user.id}) }}">Delete</a></li>  
                                         <li><a href="{{ path('user_activation', {'id': user.id}) }}">Active {{ user.isActive ? 'No':'Yes'}}</a></li> 
-                                        </ul>
+                                        {% if(user.employee) %}
+                                            <li><a href="{{ path('employee_show', {'id': user.employee.id}) }}">View profile</a></li> 
+                                        {% else %}
+                                            <li><a href="{{ path('user_employee', {'id': user.id})}}">Add employee profile</a></li> 
+                                        {% endif %}
+                                    </ul>
                                 </div>
                             </td>
                         </tr>
@@ -63,5 +67,14 @@
                 </tbody>        
             </table>   
         </div>        
-    </div>            
+    </div>       
+{% endblock %}
+{% block javascripts %}
+        {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('#users').DataTable();
+        });
+    </script>
+
 {% endblock %}

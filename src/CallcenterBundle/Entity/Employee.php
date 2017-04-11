@@ -3,12 +3,17 @@
 namespace CallcenterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Employee
  *
  * @ORM\Table(name="employee")
  * @ORM\Entity(repositoryClass="CallcenterBundle\Repository\EmployeeRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("mexId")
+ * @UniqueEntity("ignitionId") 
  */
 class Employee
 {
@@ -23,21 +28,34 @@ class Employee
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="mexId", type="string", length=6, unique=true)
+     * @Assert\Length(min=4)
+     * @ORM\Column(name="mexId", type="string", length=6, unique=true, nullable=true)
+     * @Assert\Length(max=10)
      */
     private $mexId;
 
     /**
      * @var string
-     *
+     * @Assert\Length(max=8)
+     * @Assert\Length(min=8)
      * @ORM\Column(name="ignitionId", type="string", length=8, unique=true)
      */
     private $ignitionId;
+    
+    /**
+     * @Assert\File(
+     *     maxSize = "7M",
+     *     mimeTypes = {"image/jpeg", "image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Please upload a valid image(.jped,.jpg,.png)"
+     * )    
+     * @ORM\Column(type="string", length=240, nullable=true)
+     */
+    private $profilePicture;    
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max=40)
      * @ORM\Column(name="firstName", type="string", length=40)
      */
     private $firstName;
@@ -51,7 +69,8 @@ class Employee
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max=40)
      * @ORM\Column(name="lastName", type="string", length=40)
      */
     private $lastName;
@@ -59,7 +78,7 @@ class Employee
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hireDate", type="datetime", nullable=true)
+     * @ORM\Column(name="hireDate", type="datetime", nullable=false)
      */
     private $hireDate;
     
@@ -85,7 +104,7 @@ class Employee
     
     /**
      * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\Employee", inversedBy="subordinate") 
-     * @ORM\JoinColumn(name="supervisor_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="supervisor_id", referencedColumnName="id", nullable=true)
      **/
     private $supervisor;
     
@@ -99,7 +118,26 @@ class Employee
      * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\ServiceUnit", inversedBy="employees") 
      * @ORM\JoinColumn(name="serviceunit_id", referencedColumnName="id")
      **/
-    private $serviceunit;    
+    private $serviceunit;   
+    
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     *
+     * @var DateTime $createdAt
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     *
+     * @var DateTime $updatedAt
+     */
+    protected $updatedAt;        
+    
+    /**
+     * @ORM\Column(name="is_active", type="boolean", options={"default" : 0})
+     */
+    private $isActive;    
     
     public function __construct() {
         $this->subordinate = new \Doctrine\Common\Collections\ArrayCollection();
@@ -109,6 +147,23 @@ class Employee
         return (string) $this->firstName.' '.$this->lastName;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }    
+    
     /**
      * Get id
      *
@@ -391,5 +446,97 @@ class Employee
     public function getServiceunit()
     {
         return $this->serviceunit;
+    }
+
+    /**
+     * Set profilePicture
+     *
+     * @param string $profilePicture
+     *
+     * @return Employee
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePicture
+     *
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+    
+    public function isActive()
+    {
+        return $this->isActive;
+    }        
+    
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+    
+    
+    public function getCreatedAt(){
+        return $this->createdAt;
+    }
+    
+    public function getUpdatedAt(){
+        return $this->updatedAt;
+    }
+ 
+        
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Employee
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Employee
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 }

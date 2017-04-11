@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="employee")
  * @ORM\Entity(repositoryClass="CallcenterBundle\Repository\EmployeeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Employee
 {
@@ -24,7 +25,7 @@ class Employee
     /**
      * @var string
      *
-     * @ORM\Column(name="mexId", type="string", length=6, unique=true)
+     * @ORM\Column(name="mexId", type="string", length=6, unique=true, nullable=true)
      */
     private $mexId;
 
@@ -34,6 +35,11 @@ class Employee
      * @ORM\Column(name="ignitionId", type="string", length=8, unique=true)
      */
     private $ignitionId;
+    
+    /**
+     * @ORM\Column(type="string", length=240, nullable=true)
+     */
+    private $profilePicture;    
 
     /**
      * @var string
@@ -85,7 +91,7 @@ class Employee
     
     /**
      * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\Employee", inversedBy="subordinate") 
-     * @ORM\JoinColumn(name="supervisor_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="supervisor_id", referencedColumnName="id", nullable=true)
      **/
     private $supervisor;
     
@@ -99,7 +105,26 @@ class Employee
      * @ORM\ManyToOne(targetEntity="CallcenterBundle\Entity\ServiceUnit", inversedBy="employees") 
      * @ORM\JoinColumn(name="serviceunit_id", referencedColumnName="id")
      **/
-    private $serviceunit;    
+    private $serviceunit;   
+    
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     *
+     * @var DateTime $createdAt
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
+     *
+     * @var DateTime $updatedAt
+     */
+    protected $updatedAt;        
+    
+    /**
+     * @ORM\Column(name="is_active", type="boolean", options={"default" : 0})
+     */
+    private $isActive;    
     
     public function __construct() {
         $this->subordinate = new \Doctrine\Common\Collections\ArrayCollection();
@@ -109,6 +134,23 @@ class Employee
         return (string) $this->firstName.' '.$this->lastName;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }    
+    
     /**
      * Get id
      *
@@ -368,4 +410,82 @@ class Employee
     {
         return $this->position;
     }
+
+    /**
+     * Set serviceunit
+     *
+     * @param \CallcenterBundle\Entity\ServiceUnit $serviceunit
+     *
+     * @return Employee
+     */
+    public function setServiceunit(\CallcenterBundle\Entity\ServiceUnit $serviceunit = null)
+    {
+        $this->serviceunit = $serviceunit;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceunit
+     *
+     * @return \CallcenterBundle\Entity\ServiceUnit
+     */
+    public function getServiceunit()
+    {
+        return $this->serviceunit;
+    }
+
+    /**
+     * Set profilePicture
+     *
+     * @param string $profilePicture
+     *
+     * @return Employee
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePicture
+     *
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
+    }
+    
+    public function isActive()
+    {
+        return $this->isActive;
+    }        
+    
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+    
+    
+    public function getCreatedAt(){
+        return $this->createdAt;
+    }
+    
+    public function getUpdatedAt(){
+        return $this->updatedAt;
+    }
+ 
+        
 }

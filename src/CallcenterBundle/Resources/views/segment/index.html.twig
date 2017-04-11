@@ -4,38 +4,39 @@
 {% block body %}
 
     <div class="page-header">
-        <h2>Employee Position Management</h2>           
+        <h2>Segment Management</h2>           
     </div>
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2 ">
-            <a href="{{ url('position_create')}}" class="btn btn-primary">New</a>
+            <a href="{{ url('segment_create')}}" class="btn btn-primary">New</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th> Job code </th>
+
                         <th> Name </th>
-                        <th> Description </th>
-                        <th> Paylevel </th>
-                        <th> Options </th>
+                        <th> Channel </th>
+                        <th> Service Unit </th>
+                        <th> Created at </th>                        
+                        <th> Options </th>                        
+
                     </tr>
                 </thead>
                 <tbody>
-                    {% for position in positions %}
+                    {% for segment in segments %}
                         <tr>
-                            <td>{{position.jobcode}}</td>
-                            <td>{{position.name}}</td>
-                            <td>{{position.description}}</td>
-                            <td>{{position.paylevel}}</td>
-                            
+                            <td>{{segment.name}}</td>
+                            <td>{{segment.channel.name}}</td>
+                            <td>{{segment.serviceunit.name}}</td>
+                            <td>{{segment.createdat|date("m/d/Y")}}</td>
                             <td>
                                 <div class="btn-group">
                                         <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
                                         <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
-                                        <li><a href="{{ path('position_edit', {'id': position.id}) }}">Edit</a></li>  
-                                        <li><a href="{{ path('position_delete', {'id': position.id}) }}">Delete</a></li>  
+                                        <li><a href="{{ path('segment_edit', {'id': segment.id}) }}">Edit</a></li>  
+                                        <li><a href="{{ path('segment_delete', {'id': segment.id}) }}">Delete</a></li>  
                                         </ul>
                                 </div>
                             </td>                            
