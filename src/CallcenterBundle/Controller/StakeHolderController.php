@@ -38,10 +38,10 @@ class StakeHolderController extends Controller
     public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $ch = $em->getRepository('CallcenterBundle:Channel')->find($id);
+        $ch = $em->getRepository('CallcenterBundle:StakeHolder')->find($id);
         $em->remove($ch);
         $em->flush();
-        return $this->redirect($this->generateUrl('channel'));   
+        return $this->redirect($this->generateUrl('stakeholder'));   
     }
 
     /**

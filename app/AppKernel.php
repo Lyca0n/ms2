@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new AuthBundle\AuthBundle(),            
             new CallcenterBundle\CallcenterBundle(),
+            new TicketBundle\TicketBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

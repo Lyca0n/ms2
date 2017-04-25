@@ -1,0 +1,44 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}TicketBundle:TicketCategory:index{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>Ticket Category Management</h2>           
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 ">
+            <a href="{{ url('ticketcategory_create')}}" class="btn btn-primary">New</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Name </th>
+                        <th> Queue </th>
+                        <th> Options </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{category.name}}</td>
+                            <td>{{category.ticketqueue.name}}</td>
+                            <td>
+                                <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                        <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                        <li><a href="{{ path('ticketcategory_edit', {'id': category.id}) }}">Edit</a></li>  
+                                        <li><a href="{{ path('ticketcategory_delete', {'id': category.id}) }}">Delete</a></li>  
+                                        </ul>
+                                </div>
+                            </td>                            
+                        </tr>
+                    {%endfor%}    
+                </tbody>        
+            </table>   
+        </div>        
+    </div>            
+{% endblock %}

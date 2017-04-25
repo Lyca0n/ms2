@@ -105,6 +105,38 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $employee;
     
+    /**
+     * 
+     * @var ArrayCollection $users
+     * @ORM\OneToMany(targetEntity="TicketBundle\Entity\Ticket", mappedBy="createdBy")
+    */
+    protected $createdTickets;
+
+    /**
+     * 
+     * @var ArrayCollection $users
+     * @ORM\OneToMany(targetEntity="TicketBundle\Entity\Ticket", mappedBy="assignedTo")
+    */
+    protected $assignedTickets;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="AuthBundle\Entity\UserGroup", inversedBy="users")
+     * @ORM\JoinColumn(name="usergroup_id", referencedColumnName="id")
+     */
+    protected $userGroup;
+
+    /**
+     * @var ArrayCollection $ticketQueues
+     * 
+     * @ORM\ManyToMany(targetEntity="TicketBundle\Entity\TicketQueue", inversedBy="users")
+     * @ORM\JoinTable(name="user_ticketqueue",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="ticket_id", referencedColumnName="id")}
+     * )
+     */
+    protected $ticketQueues;
+
+
 
     public function __construct()
     {
@@ -416,5 +448,131 @@ class User implements AdvancedUserInterface, \Serializable
                 ->atPath('email')
                 ->addViolation();
         }      
+    }
+
+    /**
+     * Add createdTicket
+     *
+     * @param \TicketBundle\Entity\Ticket $createdTicket
+     *
+     * @return User
+     */
+    public function addCreatedTicket(\TicketBundle\Entity\Ticket $createdTicket)
+    {
+        $this->createdTickets[] = $createdTicket;
+
+        return $this;
+    }
+
+    /**
+     * Remove createdTicket
+     *
+     * @param \TicketBundle\Entity\Ticket $createdTicket
+     */
+    public function removeCreatedTicket(\TicketBundle\Entity\Ticket $createdTicket)
+    {
+        $this->createdTickets->removeElement($createdTicket);
+    }
+
+    /**
+     * Get createdTickets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCreatedTickets()
+    {
+        return $this->createdTickets;
+    }
+
+    /**
+     * Add assignedTicket
+     *
+     * @param \TicketBundle\Entity\Ticket $assignedTicket
+     *
+     * @return User
+     */
+    public function addAssignedTicket(\TicketBundle\Entity\Ticket $assignedTicket)
+    {
+        $this->assignedTickets[] = $assignedTicket;
+
+        return $this;
+    }
+
+    /**
+     * Remove assignedTicket
+     *
+     * @param \TicketBundle\Entity\Ticket $assignedTicket
+     */
+    public function removeAssignedTicket(\TicketBundle\Entity\Ticket $assignedTicket)
+    {
+        $this->assignedTickets->removeElement($assignedTicket);
+    }
+
+    /**
+     * Get assignedTickets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssignedTickets()
+    {
+        return $this->assignedTickets;
+    }
+
+    /**
+     * Set userGroup
+     *
+     * @param \AuthBundle\Entity\UserGroup $userGroup
+     *
+     * @return User
+     */
+    public function setUserGroup(\AuthBundle\Entity\UserGroup $userGroup = null)
+    {
+        $this->userGroup = $userGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get userGroup
+     *
+     * @return \AuthBundle\Entity\UserGroup
+     */
+    public function getUserGroup()
+    {
+        return $this->userGroup;
+    }
+
+    /**
+     * Add ticketQueue
+     *
+     * @param \TicketBundle\Entity\TicketQueue $ticketQueue
+     *
+     * @return User
+     */
+    public function addTicketQueue(\TicketBundle\Entity\TicketQueue $ticketQueue)
+    {
+        $this->ticketQueues[] = $ticketQueue;
+
+        return $this;
+    }
+
+    /**
+     * Remove ticketQueue
+     *
+     * @param \TicketBundle\Entity\TicketQueue $ticketQueue
+     */
+    public function removeTicketQueue(\TicketBundle\Entity\TicketQueue $ticketQueue)
+    {
+        $this->ticketQueues->removeElement($ticketQueue);
+    }
+
+    /**
+     * Get ticketQueues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTicketQueues()
+    {
+        return $this->ticketQueues;
     }
 }

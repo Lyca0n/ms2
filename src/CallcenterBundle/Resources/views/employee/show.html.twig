@@ -36,7 +36,8 @@
                             <th> Subordinates </th>
                             <th> Position </th>
                             <th> Service unit </th>
-                            <th> Is active </th>                            
+                            <th> Is active </th>    
+                            <th> Is full time </th>                                
                             <th> Created at </th>
                             <th> Updated at </th>
                             
@@ -69,6 +70,7 @@
                             <td>{% if employee.position %}{{employee.position.name }}{% endif %}</td>    
                             <td>{% if employee.serviceunit %}{{employee.serviceunit.name }}{% endif %}</td>    
                             <td>{{employee.isActive ? 'Yes':'No'}}</td>                            
+                            <td>{{employee.isFulltime ? 'Yes':'No'}}</td>                               
                             <td>{{employee.createdAt|date("m/d/Y") }}</td>
                             <td>{{employee.updatedAt|date("m/d/Y") }}</td>
                         </tr>

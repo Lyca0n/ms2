@@ -4,6 +4,3 @@ auth:
 
     resource: "@AuthBundle/Controller/"
     type: annotation
-    
-logout:
-    path: /logout

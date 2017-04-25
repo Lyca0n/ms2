@@ -1,0 +1,94 @@
+<?php
+
+namespace TicketBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TicketAttachment
+ *
+ * @ORM\Table(name="ticket_attachment")
+ * @ORM\Entity(repositoryClass="TicketBundle\Repository\TicketAttachmentRepository")
+ */
+class TicketAttachment
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filename", type="string", length=255)
+     */
+    private $filename;
+
+     /**
+     * @ORM\ManyToOne(targetEntity="TicketBundle\Entity\Ticket", inversedBy="ticketAttachments") 
+     * @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
+     **/
+    private $ticket;     
+    
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set filename
+     *
+     * @param string $filename
+     *
+     * @return TicketAttachment
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set ticket
+     *
+     * @param \TicketBundle\Entity\Ticket $ticket
+     *
+     * @return TicketAttachment
+     */
+    public function setTicket(\TicketBundle\Entity\Ticket $ticket = null)
+    {
+        $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * Get ticket
+     *
+     * @return \TicketBundle\Entity\Ticket
+     */
+    public function getTicket()
+    {
+        return $this->ticket;
+    }
+}

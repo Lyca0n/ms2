@@ -9,3 +9,5 @@ auth:
 callcenter:
     resource: "@CallcenterBundle/Resources/config/routing.yml"
 
+ticket:
+    resource: "@TicketBundle/Resources/config/routing.yml"

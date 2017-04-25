@@ -1,0 +1,53 @@
+{% extends 'layout/layout.html.twig' %}
+{% block title %}TicketBundle:TicketStatus:create{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>Ticket Status</h2>           
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">     
+            <div class="panel panel-default">
+                <div class='panel-heading'> Create Status</div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.name) }}
+                    </div>                        
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>            
+        </div>
+        <div class="col-md-6 ">       
+            <h5> Status Codes </h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>                        
+                        <th> Name </th>
+                        <th> Options </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for status in statuslist %}
+                        <tr>
+                            <td>{{status.name}}</td>
+                            <td>
+                                <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                        <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">       
+                                        <li><a href="{{ path('ticketstatus_edit', {'id': status.id}) }}">Edit</a></li> 
+                                        <li><a href="{{ path('ticketstatus_delete', {'id': status.id}) }}">Delete</a></li>  
+                                        </ul>
+                                </div>
+                            </td>                            
+                        </tr>
+                    {%endfor%}    
+                </tbody>        
+            </table>   
+        </div>                 
+    </div>
+{% endblock %}

@@ -139,6 +139,11 @@ class Employee
      */
     private $isActive;    
     
+    /**
+     * @ORM\Column(name="isFulltime", type="boolean", options={"default" : 1})
+     */
+    private $isFulltime;        
+    
     public function __construct() {
         $this->subordinate = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -538,5 +543,29 @@ class Employee
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set isFulltime
+     *
+     * @param boolean $isFulltime
+     *
+     * @return Employee
+     */
+    public function setIsFulltime($isFulltime)
+    {
+        $this->isFulltime = $isFulltime;
+
+        return $this;
+    }
+
+    /**
+     * Get isFulltime
+     *
+     * @return boolean
+     */
+    public function getIsFulltime()
+    {
+        return $this->isFulltime;
     }
 }

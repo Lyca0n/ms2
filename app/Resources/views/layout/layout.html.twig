@@ -13,6 +13,17 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+        }
+    </style>    
 
 </head>
 <body>
@@ -60,10 +71,16 @@
                                     System <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('user') }}">Users</a>
-                                        <a href="{{ url('role') }}">Roles</a>                                                                                      
-                                    </li>
+                                    <li><a href="{{ url('user') }}">Users</a></li>
+                                    <li><a href="{{ url('role') }}">Roles</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a class="test" tabindex="-1" href="#">Ticket <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" href="{{url('ticketqueue')}}">Ticket Queues</a></li>
+                                            <li><a tabindex="-1" href="{{url('ticketcategory')}}">Ticket Categories</a></li>
+                                            <li><a tabindex="-1" href="{{url('ticketstatus')}}">Ticket Status</a></li>
+                                        </ul>
+                                    </li>                                    
                                 </ul>                                            
                             </li>                       
                             <li class="dropdown">
@@ -71,18 +88,15 @@
                                     Callcenter <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">                                    
-                                    <li>
-                                        <a href="{{ url('employee') }}">Employees</a>
-                                        <a href="{{ url('position') }}">Positions</a>                                                    
-                                        <a href="{{ url('unit') }}">Service Units</a>      
-                                        <a href="{{ url('channel') }}">Channels</a>  
-                                        <a href="{{ url('segment') }}">Segments</a>                                              
-                                        <a href="{{ url('workforce') }}">Work Force</a>                                          
-                                        <a href="{{ url('department') }}">Departments</a>  
-                                        <a href="{{ url('stakeholder') }}">Stake Holders</a>                                                
-                                        <a href="{{ url('costcenter') }}">Cost Centers</a>                                                                                    
-
-                                    </li>
+                                    <li><a href="{{ url('employee') }}">Employees</a></li>
+                                    <li><a href="{{ url('position') }}">Positions</a>     </li>                                               
+                                    <li><a href="{{ url('unit') }}">Service Units</a> </li>     
+                                    <li><a href="{{ url('channel') }}">Channels</a>  </li>
+                                    <li><a href="{{ url('segment') }}">Segments</a> </li>                                             
+                                    <li><a href="{{ url('workforce') }}">Work Force</a></li>                                          
+                                    <li><a href="{{ url('department') }}">Departments</a></li>  
+                                    <li><a href="{{ url('stakeholder') }}">Stake Holders</a> </li>                                               
+                                    <li><a href="{{ url('costcenter') }}">Cost Centers</a></li>
                                 </ul>                                            
                             </li> 
                             <li class="dropdown">
@@ -97,7 +111,7 @@
                                         <a href="#">Calendar</a>  
                                         <a href="#">Dashboard</a>                                              
                                         <a href="#">Quality Assurance</a>                                          
-                                        <a href="#">Trainning</a>  
+                                        <a href="#">Training</a>  
                                         <a href="#">Team Lead Planner</a>                                                
                                         <a href="#">Tickets</a>                                                                                    
                                     </li>
@@ -116,7 +130,7 @@
                         {% else %}
                             <li><a href="{{ url('login') }}">Login</a></li>
                             <li><a href="{{ url('register') }}">Register</a></li>
-                        {% endif %}
+                            {% endif %}
 
                     </ul>
                 </div>
@@ -139,7 +153,16 @@
     $(document).ready(function () {
         $('.datatable').DataTable();
     });
-</script>        
+</script>   
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
 {% block javascripts %}{% endblock %}
 
 </body>

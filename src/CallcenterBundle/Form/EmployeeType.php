@@ -40,6 +40,14 @@ class EmployeeType extends AbstractType {
                         'No' => false,
                     ),
                 ))
+                ->add('isfulltime', ChoiceType::class, array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Is this Employee full time?',
+                    'choices' => array(
+                        'Yes' => true,
+                        'No' => false,
+                    ),
+                ))                
                 ->add('hiredate', DateType::class, array('attr' => array('class' => 'form-control'), 'years' => range(date('Y') - 18, date('Y') + 18)))
                 ->add('supervisor', EntityType::class, array('multiple' => false, 'class' => 'CallcenterBundle\Entity\Employee', 'required' => false, 'placeholder' => 'Choose an option', 'choice_label' => function ($employee) {
                         return $employee->getFirstName() . ' ' . $employee->getLastName();

@@ -1,0 +1,64 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}TicketBundle:Ticket:create{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>Tickets</h2>           
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">     
+            <div class="panel panel-default">
+                <div class='panel-heading'> New Ticket</div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.description) }}
+                    </div>     
+                    <div class="form-group">
+                        {{ form_row(form.ticketqueue) }}
+                    </div>     
+                    <div class="form-group">
+                        {{ form_row(form.ticketcategory) }}
+                    </div>     
+                                                                                                                        
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>            
+        </div>
+    </div>
+                  
+{% endblock %}
+{% block javascripts %}
+<script>
+    
+var $sport = $('#ticket_ticketqueue');
+// When sport gets selected ...
+$sport.change(function() {
+  // ... retrieve the corresponding form.
+  var $form = $(this).closest('form');
+  // Simulate form data, but only include the selected sport value.
+  var data = {};
+  data[$sport.attr('name')] = $sport.val();
+  // Submit data via AJAX to the form's action path.
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+      // Replace current position field ...
+      $('#ticket_ticketcategory').replaceWith(
+        // ... with the returned one from the AJAX response.
+        $(html).find('#ticket_ticketcategory')
+      );
+      // Position field now displays the appropriate positions.
+    }
+  });
+});
+</script>  
+{% endblock %}
