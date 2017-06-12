@@ -1,0 +1,5 @@
+## YAML Template.
+---
+parameters:
+    ticket_default_status: 'Open'
+    ticket_auto_assign: true

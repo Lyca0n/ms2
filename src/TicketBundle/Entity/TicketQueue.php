@@ -42,9 +42,14 @@ class TicketQueue
     private $tickets;
     
     /**
-     * @var ArrayCollection $users
-     * @ORM\ManyToMany(targetEntity="AuthBundle\Entity\User", mappedBy="ticketQueues")
-     */
+     * @var ArrayCollection $ticketQueues
+     * 
+     * @ORM\ManyToMany(targetEntity="AuthBundle\Entity\User", inversedBy="ticketQueues")
+     * @ORM\JoinTable(name="user_ticketqueue",
+     *     joinColumns={@ORM\JoinColumn(name="ticket_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
+     */    
     private $users;
 
     /**     
@@ -155,39 +160,7 @@ class TicketQueue
         return $this->tickets;
     }
 
-    /**
-     * Add user
-     *
-     * @param \AuthBundle\Entity\User $user
-     *
-     * @return TicketQueue
-     */
-    public function addUser(\AuthBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
 
-        return $this;
-    }
-
-    /**
-     * Remove user
-     *
-     * @param \AuthBundle\Entity\User $user
-     */
-    public function removeUser(\AuthBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
 
     /**
      * Add ticketCategory
@@ -221,5 +194,39 @@ class TicketQueue
     public function getTicketCategories()
     {
         return $this->ticketCategories;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \AuthBundle\Entity\User $user
+     *
+     * @return TicketQueue
+     */
+    public function addUser(\AuthBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \AuthBundle\Entity\User $user
+     */
+    public function removeUser(\AuthBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

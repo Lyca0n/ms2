@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="ticket_comment")
  * @ORM\Entity(repositoryClass="TicketBundle\Repository\TicketCommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class TicketComment
 {
@@ -40,6 +41,22 @@ class TicketComment
      * @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
      */
     private $ticket;
+
+
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     *
+     * @var DateTime $createdAt
+     */
+    protected $createdAt;  
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+    }
 
     /**
      * Get id
@@ -121,5 +138,29 @@ class TicketComment
     public function getTicket()
     {
         return $this->ticket;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return TicketComment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

@@ -45,10 +45,20 @@ class TicketCategoryController extends Controller
     /**
      * @Route("/ticketcategory/edit/{id}" , name="ticketcategory_edit")
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();   
+        $category =  $em->getRepository('TicketBundle:TicketCategory')->find($id);
+        $form = $this->createForm(TicketCategoryType::class, $category);
+        $form->handleRequest($request);   
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($category);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('ticketcategory'));
+        }      
         return $this->render('TicketBundle:TicketCategory:edit.html.twig', array(
-            // ...
+           'form' => $form->createView()
         ));
     }
 

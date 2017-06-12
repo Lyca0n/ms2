@@ -45,7 +45,7 @@ class User implements AdvancedUserInterface, \Serializable
     private $username;
     
     /**
-     * @Assert\NotBlank()
+     * 
      * @Assert\Length(max=28)
      * @Assert\Length(min=8)
      */
@@ -126,14 +126,9 @@ class User implements AdvancedUserInterface, \Serializable
     protected $userGroup;
 
     /**
-     * @var ArrayCollection $ticketQueues
-     * 
-     * @ORM\ManyToMany(targetEntity="TicketBundle\Entity\TicketQueue", inversedBy="users")
-     * @ORM\JoinTable(name="user_ticketqueue",
-     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="ticket_id", referencedColumnName="id")}
-     * )
-     */
+     * @var ArrayCollection $users
+     * @ORM\ManyToMany(targetEntity="TicketBundle\Entity\TicketQueue", mappedBy="users")
+     */    
     protected $ticketQueues;
 
 
@@ -141,6 +136,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
+        $this->ticketQueues = new ArrayCollection();
     }
     
     /**
@@ -541,6 +537,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->userGroup;
     }
+
 
     /**
      * Add ticketQueue

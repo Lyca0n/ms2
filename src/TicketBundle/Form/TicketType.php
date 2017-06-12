@@ -28,7 +28,12 @@ class TicketType extends AbstractType {
                     'class' => 'TicketBundle\Entity\TicketQueue', 'placeholder' => 'Select Queue', 'choice_label' => function
                     ($q) {
                         return $q->getName();
-                    }, 'attr' => array('class' => 'form-control')));
+                    }, 'attr' => array('class' => 'form-control')))
+                ->add('ticketpriority', EntityType::class, array('multiple' => false,
+                    'class' => 'TicketBundle\Entity\TicketPriority', 'placeholder' => 'Select Priority', 'choice_label' => function
+                    ($q) {
+                        return $q->getName();
+                    }, 'attr' => array('class' => 'form-control')));                    
 
         $formModifier = function (FormInterface $form, TicketQueue $sport = null) {
             $positions = null === $sport ? array() : $sport->getTicketCategories();

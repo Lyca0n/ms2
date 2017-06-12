@@ -1,0 +1,15 @@
+{% extends 'layout/layout.html.twig' %}
+
+
+{% block body %}
+    <h1>Oops! , something went wrong</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %}
+
+    <p>
+        If this issue persists please let management know, thank you. <br>
+         <a href="{{ path('home') }}">return to the homepage</a>.
+    </p>
+{% endblock %}

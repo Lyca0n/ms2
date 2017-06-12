@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use TicketBundle\Entity\Ticket;
 use TicketBundle\Form\TicketType;
+use TicketBundle\Form\TicketCommentType;
+use TicketBundle\Form\TicketUpdateType;
 use Symfony\Component\HttpFoundation\Request;
 
 class TicketController extends Controller
@@ -16,7 +18,7 @@ class TicketController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $tickets = $em->getRepository('TicketBundle:Ticket')->findAll();                             
+        $tickets = $em->getRepository('TicketBundle:Ticket')->findBy(array(),array('createdAt' => 'DESC'));                             
         return $this->render('TicketBundle:Ticket:index.html.twig', array(
             'tickets' => $tickets, 
         ));
@@ -32,7 +34,7 @@ class TicketController extends Controller
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);   
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $ticket->setCreatedBy($this->get('security.token_storage')->getToken()->getUser());
             $em->persist($ticket);
             $em->flush();
             
@@ -44,13 +46,47 @@ class TicketController extends Controller
     }
 
     /**
-     * @Route("/ticket/edit", name="ticket_edit")
+     * @Route("/ticket/work/{id}", name="ticket_work")
      */
-    public function editAction()
+    public function workAction(Request $request, $id)
     {
-        return $this->render('TicketBundle:Ticket:edit.html.twig', array(
-            // ...
+        //call entitymanager from container
+        $em = $this->getDoctrine()->getManager();
+        $comment =  new \TicketBundle\Entity\TicketComment;        
+        //find selected ticket
+        $ticket = $em->getRepository('TicketBundle:Ticket')->find($id);
+        //create update and comment forms
+        $form = $this->createForm(TicketCommentType::class, $comment);
+        $updateform = $this->createForm(TicketUpdateType::class, $ticket,[ 'action'=> $this->generateUrl('ticket_update',['id'=>$id])]);
+        
+        $form->handleRequest($request); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setTicket($ticket);
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirect($this->generateUrl('ticket_work',['id' => $id]));
+        }
+        return $this->render('TicketBundle:Ticket:work.html.twig', array(
+            'ticket' => $ticket,
+            'form' => $form->createView(),
+            'updateform' => $updateform->createView()    
         ));
+    }
+    
+    /**
+     * @Route("/ticket/update/{id}", name="ticket_update")
+     */
+    public function updateAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $ticket = $em->getRepository('TicketBundle:Ticket')->find($id);
+        $form = $this->createForm(TicketUpdateType::class, $ticket);
+                
+        $form->handleRequest($request); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($ticket);
+            $em->flush();
+            return $this->redirect($this->generateUrl('ticket_work',['id' => $id]));
+        }
     }
 
     /**

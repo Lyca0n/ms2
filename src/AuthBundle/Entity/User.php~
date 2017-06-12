@@ -141,6 +141,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
+        $this->ticketQueues = new ArrayCollection();
     }
     
     /**
@@ -541,4 +542,5 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->userGroup;
     }
+
 }

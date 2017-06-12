@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="ticket")
  * @ORM\Entity(repositoryClass="TicketBundle\Repository\TicketRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Ticket
 {
@@ -80,6 +81,12 @@ class Ticket
     private $ticketStatus;     
 
      /**
+     * @ORM\ManyToOne(targetEntity="TicketBundle\Entity\TicketPriority", inversedBy="tickets") 
+     * @ORM\JoinColumn(name="ticketpriority_id", referencedColumnName="id")
+     **/
+    private $ticketPriority;     
+    
+     /**
      * @ORM\ManyToOne(targetEntity="TicketBundle\Entity\TicketCategory", inversedBy="tickets") 
      * @ORM\JoinColumn(name="ticketcategory_id", referencedColumnName="id")
      **/
@@ -90,7 +97,24 @@ class Ticket
      * @ORM\OneToMany(targetEntity="TicketBundle\Entity\TicketAttachment", mappedBy="ticket")
      */
     private $ticketAttachments;      
+        
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+        $this->updatedAt = new \DateTime("now");
+    }
 
+    /**
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }
+        
     /**
      * Get id
      *
@@ -370,4 +394,29 @@ class Ticket
     {
         return $this->ticketAttachments;
     }
+
+    /**
+     * Set ticketQueue
+     *
+     * @param \TicketBundle\Entity\TicketQueue $ticketQueue
+     *
+     * @return Ticket
+     */
+    public function setTicketQueue(\TicketBundle\Entity\TicketQueue $ticketQueue = null)
+    {
+        $this->ticketQueue = $ticketQueue;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketQueue
+     *
+     * @return \TicketBundle\Entity\TicketQueue
+     */
+    public function getTicketQueue()
+    {
+        return $this->ticketQueue;
+    }
+
 }

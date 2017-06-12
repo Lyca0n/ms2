@@ -1,0 +1,99 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}TicketBundle:Ticket:index{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>Tickets</h2>           
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 ">           
+            <div class="panel panel-default">
+                <div class="panel-heading">Ticket {{"%08d"|format(ticket.id) }}</div>
+                <div class="panel-body"><h4>Ticket Details</h4></div>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-1">
+                        <ul class="list-group">
+                            <li class="list-group-item"> <b>Subject:  </b>{{ticket.title}}</li>
+                            <li class="list-group-item"> <b>Description:  </b>{{ticket.description}}</li>
+                            <li class="list-group-item"> <b>Queue:  </b>{{ticket.ticketqueue.name}}</li>                            
+                            <li class="list-group-item"> <b>Category:  </b>{{ticket.ticketcategory.name}}</li>
+                            <li class="list-group-item"> <b>Created:  </b>{{ticket.createdat|date("m/d/Y")}}</li>
+                            <li class="list-group-item"> <b>Last Update:  </b>{{ticket.updatedat|date("m/d/Y")}}</li>                            
+                        </ul>
+                    </div>
+                    <div class="col-md-5 ">
+                        <ul class="list-group">
+                            <li class="list-group-item"> <b>Assigned to:  </b>
+                                {% if ticket.assignedto %}
+                                    {{ ticket.assignedto.username}}
+                                {% else %}
+                                    unassigned     
+                                {% endif %}           
+                            </li>
+                            <li class="list-group-item"> <b>Created by: </b>
+                                {{ticket.createdby.username}}        
+                            </li>   
+                            <li class="list-group-item"><b>Status: </b>
+                                {% if ticket.ticketstatus %}
+                                    {{ticket.ticketstatus.name}}
+                                {% else %}
+                                    unknown
+                                {% endif %}  
+                            </li>    
+                            <li class="list-group-item">
+                               {{ form_start(updateform) }}
+                               <div class="form-group">
+                               {{form_row(updateform.assignedto)}}
+                               </div>
+                               <div class="form-group">
+                               {{form_row(updateform.ticketstatus)}}
+                               </div>
+                               <button type="submit" class="btn btn-primary">Update</button> <a href="{{ url('ticket')}}" class="btn btn-primary">Go Back</a>
+                               {{ form_end(updateform) }}                                               
+                            </li>
+                        </ul>
+                    </div>    
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="panel-footer">                    
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-1">
+                            <h4>Add a Comment</h4>
+                            {{ form_start(form) }}
+                            <div class="form-group">
+                                {{ form_row(form.title) }}
+                            </div>    
+                            <div class="form-group">    
+                                {{ form_row(form.body) }}
+                            </div>    
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            {{ form_end(form) }}                                
+                        </div>
+                        
+                        <div class="col-md-5 col-md-offset-1">
+                            <h4>Comments</h4>
+                            {% for comment in ticket.comments %}
+                                <div class="media" >
+                                <div class="media-body">
+                                <div class="media-heading">
+                                    <h3><b>{{comment.title}}</b></h3>                                   
+                                </div>
+                                <p class="lead">
+                                    {{comment.body}}                                   
+                                </p>
+                                </div>
+                                <small><time>{{comment.createdat|date("m/d/Y")}}</time></small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>        
+    </div>            
+{% endblock %}

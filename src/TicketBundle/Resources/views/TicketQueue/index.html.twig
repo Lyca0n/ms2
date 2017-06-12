@@ -24,15 +24,27 @@
                         <tr>
                             <td>{{queue.name}}</td>
                             <td>{{queue.description}}</td>
-                            <td></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                        {{queue.users | length}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">        
+                                        {% for user in queue.users %}
+                                            <li>{{user.username}}</li> 
+                                            {% endfor %}    
+                                    </ul>
+                                </div>
+                            </td>   
                             <td>
                                 <div class="btn-group">
                                         <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
                                         <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                        <li><a href="{{ path('ticketqueue_assign', {'id': queue.id}) }}">Assign</a></li>                                              
                                         <li><a href="{{ path('ticketqueue_edit', {'id': queue.id}) }}">Edit</a></li>  
-                                        <li><a href="{{ path('ticketqueue_delete', {'id': queue.id}) }}">Delete</a></li>  
+                                        <li><a href="{{ path('ticketqueue_delete', {'id': queue.id}) }}">Delete</a></li>                                                                                  
                                         </ul>
                                 </div>
                             </td>                            

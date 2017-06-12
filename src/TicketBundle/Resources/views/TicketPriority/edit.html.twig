@@ -1,7 +1,29 @@
-{% extends "::base.html.twig" %}
+{% extends 'layout/layout.html.twig' %}
 
 {% block title %}TicketBundle:Priority:edit{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Priority:edit page</h1>
+
+    <div class="page-header">
+        <h2>Ticket Prority</h2>           
+    </div>
+    <div class="row">
+        <div class="col-md-6  col-md-offset-3">     
+            <div class="panel panel-default">
+                <div class='panel-heading'> Edit Prority</div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.name) }}
+                    </div>          
+                    <div class="form-group">
+                        {{ form_row(form.priorityvalue) }}
+                    </div>                      
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>            
+        </div>
+              
+    </div>
 {% endblock %}

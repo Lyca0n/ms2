@@ -81,6 +81,12 @@ class Ticket
     private $ticketStatus;     
 
      /**
+     * @ORM\ManyToOne(targetEntity="TicketBundle\Entity\TicketPriority", inversedBy="tickets") 
+     * @ORM\JoinColumn(name="ticketpriority_id", referencedColumnName="id")
+     **/
+    private $ticketPriority;     
+    
+     /**
      * @ORM\ManyToOne(targetEntity="TicketBundle\Entity\TicketCategory", inversedBy="tickets") 
      * @ORM\JoinColumn(name="ticketcategory_id", referencedColumnName="id")
      **/
@@ -411,5 +417,30 @@ class Ticket
     public function getTicketQueue()
     {
         return $this->ticketQueue;
+    }
+
+
+    /**
+     * Set ticketPriority
+     *
+     * @param \TicketBundle\Entity\TicketPriority $ticketPriority
+     *
+     * @return Ticket
+     */
+    public function setTicketPriority(\TicketBundle\Entity\TicketPriority $ticketPriority = null)
+    {
+        $this->ticketPriority = $ticketPriority;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketPriority
+     *
+     * @return \TicketBundle\Entity\TicketPriority
+     */
+    public function getTicketPriority()
+    {
+        return $this->ticketPriority;
     }
 }

@@ -1,0 +1,15 @@
+{% extends 'layout/layout.html.twig' %}
+
+
+{% block body %}
+    <h1>Access denied, it seems you're not allowed to access.</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %}
+
+    <p>
+        If you require access to this page, please submit your request. Checkout for any URL
+        misspelling or <a href="{{ path('home') }}">return to the homepage</a>.
+    </p>
+{% endblock %}

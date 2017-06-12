@@ -98,45 +98,5 @@ class TicketPriority
     {
         return $this->priorityValue;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add ticket
-     *
-     * @param \TicketBundle\Entity\Ticket $ticket
-     *
-     * @return TicketPriority
-     */
-    public function addTicket(\TicketBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets[] = $ticket;
-
-        return $this;
-    }
-
-    /**
-     * Remove ticket
-     *
-     * @param \TicketBundle\Entity\Ticket $ticket
-     */
-    public function removeTicket(\TicketBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets->removeElement($ticket);
-    }
-
-    /**
-     * Get tickets
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTickets()
-    {
-        return $this->tickets;
-    }
 }
+

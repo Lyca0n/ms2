@@ -117,6 +117,8 @@ class TicketQueue
     public function __construct()
     {
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ticketCategories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -153,37 +155,39 @@ class TicketQueue
         return $this->tickets;
     }
 
+
+
     /**
-     * Add user
+     * Add ticketCategory
      *
-     * @param \AuthBundle\Entity\User $user
+     * @param \TicketBundle\Entity\TicketCategory $ticketCategory
      *
      * @return TicketQueue
      */
-    public function addUser(\AuthBundle\Entity\User $user)
+    public function addTicketCategory(\TicketBundle\Entity\TicketCategory $ticketCategory)
     {
-        $this->users[] = $user;
+        $this->ticketCategories[] = $ticketCategory;
 
         return $this;
     }
 
     /**
-     * Remove user
+     * Remove ticketCategory
      *
-     * @param \AuthBundle\Entity\User $user
+     * @param \TicketBundle\Entity\TicketCategory $ticketCategory
      */
-    public function removeUser(\AuthBundle\Entity\User $user)
+    public function removeTicketCategory(\TicketBundle\Entity\TicketCategory $ticketCategory)
     {
-        $this->users->removeElement($user);
+        $this->ticketCategories->removeElement($ticketCategory);
     }
 
     /**
-     * Get users
+     * Get ticketCategories
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
+    public function getTicketCategories()
     {
-        return $this->users;
+        return $this->ticketCategories;
     }
 }

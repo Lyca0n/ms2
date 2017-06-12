@@ -2,3 +2,14 @@ services:
 #    ticket.example:
 #        class: TicketBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    ticket.create.listener:
+        class: TicketBundle\EventListener\TicketListener
+        arguments: ["@mailer","@twig","%ticket_auto_assign%"]         
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate, connection: cscc }
+            - { name: doctrine.event_listener, event: prePersist, connection: cscc }
