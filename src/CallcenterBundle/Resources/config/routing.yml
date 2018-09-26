@@ -1,6 +1,0 @@
-callcenter:
-    resource: "@CallcenterBundle/Controller/"
-    type: annotation
-    
-logout:
-    path: /logout

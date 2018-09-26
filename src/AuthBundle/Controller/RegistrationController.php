@@ -46,9 +46,6 @@ class RegistrationController extends Controller {
                 $em->persist($user);
                 $em->flush();
 
-                // ... do any other work - like sending them an email, etc
-                // maybe set a "flash" success message for the user
-
                 $message = \Swift_Message::newInstance()
                         ->setSubject('AZ MIS Sign Up confirmation')
                         ->setFrom('cs.operations.desk@autozone.com')
@@ -76,7 +73,7 @@ class RegistrationController extends Controller {
         }
 
         return $this->render(
-                        'AuthBundle:signin:register.html.twig', array('form' => $form->createView())
+            'AuthBundle:signin:register.html.twig', array('form' => $form->createView())
         );
     }
 

@@ -41,7 +41,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('home') }}"><img style="max-width:200px; margin-top: -4px;" src="/files/AutoZone_logo.png"></a>
+                    <a class="navbar-brand " href="{{ url('home') }}"><img class="img-responsive" style="max-width:180px; max-height:40px; margin-top: -4px;" src="/files/nubesa.jpg"></a>
 
                 </div>
 
@@ -86,20 +86,26 @@
                             </li>                       
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Callcenter <span class="caret"></span>
+                                    Staffing <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">                                    
                                     <li><a href="{{ url('employee') }}">Employees</a></li>
                                     <li><a href="{{ url('position') }}">Positions</a>     </li>                                               
-                                    <li><a href="{{ url('unit') }}">Service Units</a> </li>     
-                                    <li><a href="{{ url('channel') }}">Channels</a>  </li>
                                     <li><a href="{{ url('segment') }}">Segments</a> </li>                                             
                                     <li><a href="{{ url('workforce') }}">Work Force</a></li>                                          
                                     <li><a href="{{ url('department') }}">Departments</a></li>  
-                                    <li><a href="{{ url('stakeholder') }}">Stake Holders</a> </li>                                               
-                                    <li><a href="{{ url('costcenter') }}">Cost Centers</a></li>
                                 </ul>                                            
                             </li> 
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Scheduling <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">                                    
+                                    <li><a href="{{ url('employee') }}">Attendance</a></li>
+                                    <li><a href="{{ url('position') }}">Schedules</a>     </li>                                               
+                                    <li><a href="{{ url('segment') }}">Distribution</a> </li>                                             
+                                </ul>                                            
+                            </li>                             
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Applications<span class="caret"></span>
@@ -118,16 +124,6 @@
                                     </li>
                                 </ul>                                            
                             </li>    
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Reports<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">                                    
-                                    <li>
-                                        <a href="#">AAE ticket report</a>                                                                                                                                                                      
-                                    </li>
-                                </ul>                                            
-                            </li>                              
                         {% else %}
                             <li><a href="{{ url('login') }}">Login</a></li>
                             <li><a href="{{ url('register') }}">Register</a></li>
@@ -144,7 +140,7 @@
 </div>
 <footer class="footer">
     <div class="container">
-        <span class="text-muted"><b>© 2016 AutoZone, Inc. All Rights Reserved.</b></span>
+        <span class="text-muted"><b> All Rights Reserved.</b></span>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>     

@@ -5,9 +5,10 @@ app:
 auth:
     resource: "@AuthBundle/Resources/config/routing.yml"
     #prefix: /auth
-
-callcenter:
-    resource: "@CallcenterBundle/Resources/config/routing.yml"
+    
+staffing:
+    resource: "@StaffingBundle/Resources/config/routing.yml"
 
 ticket:
     resource: "@TicketBundle/Resources/config/routing.yml"
+    

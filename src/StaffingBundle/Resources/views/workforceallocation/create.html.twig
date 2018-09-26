@@ -1,0 +1,64 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}CallcenterBundle:WorkForceAllocation:index{% endblock %}
+
+{% block body %}
+
+    <div class="page-header">
+        <h2>Work Force Allocation</h2>           
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">     
+            <div class="panel panel-default">
+                <div class='panel-heading'> Add allocation</div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_row(form.department) }}
+                    </div>        
+                    <div class="form-group">
+                        {{ form_row(form.position) }}
+                    </div>       
+                    <div class="form-group">
+                        {{ form_row(form.allocation) }}
+                    </div>       
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>            
+        </div>
+        <div class="col-md-6 ">       
+            <h5>Current allocation</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Segment</th>
+                        <th>Position</th>
+                        <th>Qty</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for all in allocations %}
+                        <tr>
+                            <td>{{all.department.name}}</td>
+                            <td>{{all.position.name}}</td>   
+                            <td>{{all.allocation}}&nbsp;</td>   
+                            <td>
+                                <div class="btn-group">
+                                        <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">
+                                        <span class='glyphicon glyphicon-plus'></span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu stay-open pull-right" role="menu" style="padding: 15px; min-width: 300px;">                                          
+                                        <li><a href="{{ path('workforce_edit', {'id': all.id}) }}">Edit</a></li>                                              
+                                        <li><a href="{{ path('workforce_delete', {'id': all.id}) }}">Delete</a></li>  
+                                        </ul>
+                                </div>
+                            </td>                            
+                        </tr>
+                    {%endfor%}    
+                </tbody>        
+            </table>   
+        </div>                 
+    </div>
+{% endblock %}

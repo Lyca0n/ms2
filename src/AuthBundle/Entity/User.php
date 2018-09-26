@@ -101,7 +101,7 @@ class User implements AdvancedUserInterface, \Serializable
     protected $userRoles;
     
     /**
-     * @ORM\OneToOne(targetEntity="CallcenterBundle\Entity\Employee", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="StaffingBundle\Entity\Employee", mappedBy="user")
      */
     private $employee;
     
@@ -434,17 +434,6 @@ class User implements AdvancedUserInterface, \Serializable
         return $this;
     }
     
-    /**
-     * @Assert\Callback
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
-    {        
-        if (substr($this->getEmail(),strpos($this->getEmail(),'@')) != '@autozone.com') {
-            $context->buildViolation('you must enter your autozone email address')
-                ->atPath('email')
-                ->addViolation();
-        }      
-    }
 
     /**
      * Add createdTicket

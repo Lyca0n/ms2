@@ -1,0 +1,4 @@
+callcenter:
+    resource: "@StaffingBundle/Controller/"
+    type: annotation
+    
