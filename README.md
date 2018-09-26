@@ -1,7 +1,7 @@
-MIS 2.0
+APEX MIS
 ========================
 
-An inhouse system made to handle various management aspects.
+A system made to handle various management aspects.
 
 What's inside?
 --------------
