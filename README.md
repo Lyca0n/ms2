@@ -11,7 +11,7 @@ MIS ultimately will contain:
   * An AuthBundle to handle different type of authentication devices;
 
   * A Staffing bundle that contains all the  herarchical and organizational functionality;
-  * 
+  
   * Ticketing bundle to handle internal requests;
 
 TODO--
