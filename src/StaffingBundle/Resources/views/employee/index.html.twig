@@ -22,7 +22,6 @@
                         <th> firstname </th>
                         <th> middlename </th>
                         <th> lastname </th>
-                        <th>service unit</th>
                         <th> position</th>
                         <th> hire date </th>
                         <th> supervised by </th>
@@ -38,7 +37,6 @@
                             <td>{{employee.firstname}}</td>
                             <td>{{employee.middlename}}</td>
                             <td>{{employee.lastname}}</td>
-                            <td>{% if employee.serviceunit %}{{employee.serviceunit.name }}{% endif %}</td>                                       
                             <td>{% if employee.position %}{{employee.position.name }}{% endif %}</td>                           
                             <td>{{employee.hiredate|date("m/d/Y") }}</td>
                             <td>{% if employee.supervisor %}{{employee.supervisor.firstname }}&nbsp;{{employee.supervisor.lastname}}{% endif %}</td> 

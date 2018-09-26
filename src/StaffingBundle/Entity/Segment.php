@@ -40,7 +40,15 @@ class Segment
      * @var DateTime $createdAt
      */
     protected $createdAt;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="StaffingBundle\Entity\Department", inversedBy="segments") 
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
+     **/
+    private $department;    
     
+        
     /**
      * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      *
@@ -150,5 +158,29 @@ class Segment
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Set segment
+     *
+     * @param \StaffingBundle\Entity\Department 
+     *
+     * @return WorkForceAllocation
+     */
+    public function setDepartment(\StaffingBundle\Entity\Department $department = null)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get segment
+     *
+     * @return \StaffingBundle\Entity\Department
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }    
 
 }

@@ -36,6 +36,12 @@ class Department
     private $workforceallocations;     
     
     /**
+     * Many segment have one department
+     * @ORM\OneToMany(targetEntity="StaffingBundle\Entity\Segment", mappedBy="department")
+     */
+    private $segments;     
+    
+    /**
      * @ORM\Column(type="datetime", name="created_at")
      *
      * @var DateTime $createdAt
@@ -54,6 +60,7 @@ class Department
      */
     public function __construct(){
         $this->workforceallocations = new \Doctrine\Common\Collections\ArrayCollection();            
+        $this->segments = new \Doctrine\Common\Collections\ArrayCollection();            
     }
     
     /**

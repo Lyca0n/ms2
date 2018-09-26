@@ -25,10 +25,12 @@ class SegmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array('attr' => array('class'=>'form-control')));     
+            ->add('name', TextType::class, array('attr' => array('class'=>'form-control')))
+            ->add('department', EntityType::class, array('multiple'=> false, 'class' => 'StaffingBundle\Entity\department', 'choice_label' => function ($dept) {
+            return $dept->getName(); },'attr' => array('class'=>'form-control')));     
             /*->add('channel', EntityType::class, array('multiple'=> false, 'class' => 'StaffingBundle\Entity\Channel', 'choice_label' => function ($dept) {
             return $dept->getName(); },'attr' => array('class'=>'form-control')))
-            ->add('serviceunit', EntityType::class, array('multiple'=> false, 'class' => 'StaffingBundle\Entity\ServiceUnit', 'choice_label' => function ($holder) {
+            ->add('s', EntityType::class, array('multiple'=> false, 'class' => 'StaffingBundle\Entity\ServiceUnit', 'choice_label' => function ($holder) {
             return $holder->getName(); },'attr' => array('class'=>'form-control')));*/            
     }
 
