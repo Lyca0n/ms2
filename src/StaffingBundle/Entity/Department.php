@@ -30,6 +30,12 @@ class Department
     private $name;
     
     /**
+     * Many allocations have one department
+     * @ORM\OneToMany(targetEntity="StaffingBundle\Entity\WorkForceAllocation", mappedBy="department")
+     */
+    private $workforceallocations;     
+    
+    /**
      * @ORM\Column(type="datetime", name="created_at")
      *
      * @var DateTime $createdAt
@@ -46,9 +52,8 @@ class Department
     /**
      * Constructor
      */
-    public function __construct()
-    {
-       
+    public function __construct(){
+        $this->workforceallocations = new \Doctrine\Common\Collections\ArrayCollection();            
     }
     
     /**
@@ -140,6 +145,30 @@ class Department
         return $this;
     }
 
+    /**
+     * Add workforceallocation
+     *
+     * @param \StaffingBundle\Entity\WorkForceAllocation $workforceallocation
+     *
+     * @return Position
+     */
+    public function addWorkforceallocation(\StaffingBundle\Entity\WorkForceAllocation $workforceallocation)
+    {
+        $this->workforceallocations[] = $workforceallocation;
+
+        return $this;
+    }
+
+    /**
+     * Remove workforceallocation
+     *
+     * @param \StaffingBundle\Entity\WorkForceAllocation $workforceallocation
+     */
+    public function removeWorkforceallocation(\StaffingBundle\Entity\WorkForceAllocation $workforceallocation)
+    {
+        $this->workforceallocations->removeElement($workforceallocation);
+    }
+    
     /**
      * Get updatedAt
      *

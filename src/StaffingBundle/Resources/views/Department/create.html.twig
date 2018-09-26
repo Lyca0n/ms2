@@ -27,7 +27,6 @@
                 <thead>
                     <tr>
                         <th> Name</th>
-                        <th> cost center </th>
                         <th> Options </th>
                     </tr>
                 </thead>
@@ -35,7 +34,6 @@
                     {% for dept in depts %}
                         <tr>
                             <td>{{dept.name}}</td>
-                            <td>{{dept.costcenter.name}}</td>
                             <td>
                                 <div class="btn-group">
                                         <button class="btn btn-primary dropdown-toggle" href="#" data-toggle="dropdown">

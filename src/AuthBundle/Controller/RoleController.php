@@ -17,7 +17,7 @@ class RoleController extends Controller
     public function indexAction(){
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository('AuthBundle:Role')->findAll();
-        return $this->render('AuthBundle:Role:index.html.twig', array(
+        return $this->render('AuthBundle:role:index.html.twig', array(
             'roles' => $roles
         ));
         

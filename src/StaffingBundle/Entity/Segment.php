@@ -32,11 +32,7 @@ class Segment
      * @ORM\Column(name="name", type="string", length=25)
      */
     private $name;
-
-    /**
-     * @ORM\OneToMany(targetEntity="StaffingBundle\Entity\WorkForceAllocation", mappedBy="segment")
-     */
-    private $workforceallocations;    
+ 
     
     /**
      * @ORM\Column(type="datetime", name="created_at")
@@ -70,7 +66,7 @@ class Segment
     }    
     
     public function __construct() {
-        $this->workforceallocations = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
 
     /**
@@ -105,54 +101,6 @@ class Segment
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set workforceallocations
-     *
-     * @param \StaffingBundle\Entity\WorkForceAllocation $workforceallocations
-     *
-     * @return Segment
-     */
-    public function setWorkforceallocations(\StaffingBundle\Entity\WorkForceAllocation $workforceallocations = null)
-    {
-        $this->workforceallocations = $workforceallocations;
-
-        return $this;
-    }
-
-    /**
-     * Get workforceallocations
-     *
-     * @return \StaffingBundle\Entity\WorkForceAllocation
-     */
-    public function getWorkforceallocations()
-    {
-        return $this->workforceallocations;
-    }
-
-    /**
-     * Add workforceallocation
-     *
-     * @param \StaffingBundle\Entity\WorkForceAllocation $workforceallocation
-     *
-     * @return Segment
-     */
-    public function addWorkforceallocation(\StaffingBundle\Entity\WorkForceAllocation $workforceallocation)
-    {
-        $this->workforceallocations[] = $workforceallocation;
-
-        return $this;
-    }
-
-    /**
-     * Remove workforceallocation
-     *
-     * @param \StaffingBundle\Entity\WorkForceAllocation $workforceallocation
-     */
-    public function removeWorkforceallocation(\StaffingBundle\Entity\WorkForceAllocation $workforceallocation)
-    {
-        $this->workforceallocations->removeElement($workforceallocation);
     }
 
     /**

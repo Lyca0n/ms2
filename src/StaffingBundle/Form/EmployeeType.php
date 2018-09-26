@@ -55,9 +55,6 @@ class EmployeeType extends AbstractType {
                 ->add('position', EntityType::class, array('multiple' => false, 'class' => 'StaffingBundle\Entity\Position', 'choice_label' => function ($position) {
                         return $position->getJobCode() . ' ' . $position->getName();
                     }, 'attr' => array('class' => 'form-control')))
-                ->add('serviceunit', EntityType::class, array('multiple' => false, 'class' => 'StaffingBundle\Entity\ServiceUnit', 'choice_label' => function ($su) {
-                        return $su->getName();
-                    }, 'attr' => array('class' => 'form-control')))
                 ->add('profilepicture', FileType::class, array('label' => 'Profile picture'));
     }
 

@@ -17,14 +17,14 @@ class ProfileController extends Controller {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             //retrieve user             
             $user = $this->get('security.token_storage')->getToken()->getUser();
-            return $this->render('AuthBundle:Profile:index.html.twig', array(
+            return $this->render('AuthBundle:profile:index.html.twig', array(
                         'user' => $user
             ));
         } else {
             throw $this->createAccessDeniedException();
         }
 
-        return $this->render('AuthBundle:Profile:index.html.twig', array());
+        return $this->render('AuthBundle:profile:index.html.twig', array());
     }
 
     /**
@@ -50,7 +50,7 @@ class ProfileController extends Controller {
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('AuthBundle:Profile:update.html.twig', array('form' => $form->createView()
+        return $this->render('AuthBundle:profile:update.html.twig', array('form' => $form->createView()
         ));
     }
 

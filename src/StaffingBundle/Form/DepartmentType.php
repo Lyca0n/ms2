@@ -24,9 +24,7 @@ class DepartmentType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array('attr' => array('class'=>'form-control')))
-            ->add('costcenter', EntityType::class, array('multiple'=> false, 'class' => 'StaffingBundle\Entity\CostCenter', 'choice_label' => function ($center) {
-            return $center->getCode().' '.$center->getName() ; },'attr' => array('class'=>'form-control')));
+            ->add('name', TextType::class, array('attr' => array('class'=>'form-control')));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -30,7 +30,7 @@ class WorkForceAllocation
 
     /**
      * @ORM\ManyToOne(targetEntity="StaffingBundle\Entity\Department", inversedBy="workforceallocations") 
-     * @ORM\JoinColumn(name="segment_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
      **/
     private $department;    
     
@@ -78,13 +78,13 @@ class WorkForceAllocation
     /**
      * Set segment
      *
-     * @param \StaffingBundle\Entity\Department $segment
+     * @param \StaffingBundle\Entity\Department 
      *
      * @return WorkForceAllocation
      */
-    public function setDepartment(\StaffingBundle\Entity\Department $segment = null)
+    public function setDepartment(\StaffingBundle\Entity\Department $department = null)
     {
-        $this->segment = $segment;
+        $this->department = $department;
 
         return $this;
     }
@@ -96,7 +96,7 @@ class WorkForceAllocation
      */
     public function getDepartment()
     {
-        return $this->segment;
+        return $this->department;
     }
 
     /**

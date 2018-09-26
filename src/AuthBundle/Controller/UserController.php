@@ -8,8 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AuthBundle\Entity\User;
 use AuthBundle\Entity\Role;
-use CallcenterBundle\Entity\Employee;
-use CallcenterBundle\Form\EmployeeType;
+use StaffingBundle\Entity\Employee;
+use StaffingBundle\Form\EmployeeType;
 
 class UserController extends Controller {
 
@@ -77,7 +77,7 @@ class UserController extends Controller {
     public function profileAction(Request $request, $id) {
 
         $em = $this->getDoctrine()->getManager();
-        $emprepo = $em->getRepository('CallcenterBundle:Employee');
+        $emprepo = $em->getRepository('StaffingBundle:Employee');
         $userrepo = $em->getRepository('AuthBundle:User');
         //check if profile exists
         $profile = $emprepo->findOneBy(
@@ -99,7 +99,7 @@ class UserController extends Controller {
                 $em->flush();
                 return $this->redirect($this->generateUrl('employee'));
             }
-            return $this->render('AuthBundle:user:profile.html.twig', array(
+            return $this->render('AuthBundle:User:profile.html.twig', array(
                     'form' => $form->createView(),
                     'userid' => $id
             ));
