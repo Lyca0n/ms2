@@ -103,6 +103,12 @@ class Employee
     private $subordinate;    
     
     /**
+     * @ORM\ManyToOne(targetEntity="StaffingBundle\Entity\Department", inversedBy="employees") 
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=true)
+     **/
+    private $department;    
+    
+    /**
      * @ORM\ManyToOne(targetEntity="StaffingBundle\Entity\Employee", inversedBy="subordinate") 
      * @ORM\JoinColumn(name="supervisor_id", referencedColumnName="id", nullable=true)
      **/

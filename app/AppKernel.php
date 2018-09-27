@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AuthBundle\AuthBundle(),            
             new TicketBundle\TicketBundle(),
             new StaffingBundle\StaffingBundle(),
+            new SchedulingBundle\SchedulingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['prod','dev', 'test'], true)) {

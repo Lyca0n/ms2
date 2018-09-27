@@ -40,6 +40,12 @@ class Department
      * @ORM\OneToMany(targetEntity="StaffingBundle\Entity\Segment", mappedBy="department")
      */
     private $segments;     
+
+    /**
+     * Many employees have one department
+     * @ORM\OneToMany(targetEntity="StaffingBundle\Entity\Employee", mappedBy="department")
+     */
+    private $employees;         
     
     /**
      * @ORM\Column(type="datetime", name="created_at")
@@ -61,6 +67,7 @@ class Department
     public function __construct(){
         $this->workforceallocations = new \Doctrine\Common\Collections\ArrayCollection();            
         $this->segments = new \Doctrine\Common\Collections\ArrayCollection();            
+        $this->employees = new \Doctrine\Common\Collections\ArrayCollection();            
     }
     
     /**
@@ -175,6 +182,57 @@ class Department
     {
         $this->workforceallocations->removeElement($workforceallocation);
     }
+    
+    /**
+     * Add Segments
+     *
+     * @param \StaffingBundle\Entity\WorkForceAllocation $segment
+     *
+     * @return Position
+     */
+    public function addSegments(\StaffingBundle\Entity\Segments $segment)
+    {
+        $this->segments[] = $segment;
+
+        return $this;
+    }
+
+
+    /**
+     * Remove Segments
+     *
+     * @param \StaffingBundle\Entity\WorkForceAllocation $segment
+     */
+    public function removeSegments(\StaffingBundle\Entity\WorkForceAllocation $segment)
+    {
+        $this->segments->removeElement($segment);
+    }
+
+    /**
+     * Add employees
+     *
+     * @param \StaffingBundle\Entity\Employee $employee
+     *
+     * @return Position
+     */
+    public function addEmployees(\StaffingBundle\Entity\Employee $employee)
+    {
+        $this->employees[] = $employee;
+
+        return $this;
+    }
+
+
+    /**
+     * Remove employees
+     *
+     * @param \StaffingBundle\Entity\Employee $employee
+     */
+    public function removeEmployees(\StaffingBundle\Entity\Employee $employee)
+    {
+        $this->employees->removeElement($employee);
+    }        
+        
     
     /**
      * Get updatedAt
