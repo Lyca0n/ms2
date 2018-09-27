@@ -186,11 +186,11 @@ class Department
     /**
      * Add Segments
      *
-     * @param \StaffingBundle\Entity\WorkForceAllocation $segment
+     * @param \StaffingBundle\Entity\Segment $segment
      *
      * @return Position
      */
-    public function addSegments(\StaffingBundle\Entity\Segments $segment)
+    public function addSegments(\StaffingBundle\Entity\Segment $segment)
     {
         $this->segments[] = $segment;
 
@@ -201,9 +201,9 @@ class Department
     /**
      * Remove Segments
      *
-     * @param \StaffingBundle\Entity\WorkForceAllocation $segment
+     * @param \StaffingBundle\Entity\Segment $segment
      */
-    public function removeSegments(\StaffingBundle\Entity\WorkForceAllocation $segment)
+    public function removeSegments(\StaffingBundle\Entity\Segment $segment)
     {
         $this->segments->removeElement($segment);
     }

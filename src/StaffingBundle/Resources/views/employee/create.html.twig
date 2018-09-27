@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}CallcenterBundle:Employee:create{% endblock %}
+{% block title %}Employee:create{% endblock %}
 
 {% block body %}
 
@@ -13,12 +13,6 @@
                 <div class='panel-heading'> staff enrollment</div>
                 <div class="panel-body">
                     {{ form_start(form) }}
-                    <div class="form-group">
-                        {{ form_row(form.mexid) }}
-                    </div>    
-                    <div class="form-group">
-                        {{ form_row(form.ignitionid) }}
-                    </div>
                     <div class="form-group">
                         {{ form_row(form.firstname) }}
                     </div>     
@@ -44,8 +38,8 @@
                         {{ form_row(form.position) }}
                     </div>
                     <div class="form-group">
-                        {{ form_row(form.serviceunit) }}
-                    </div>                    
+                        {{ form_row(form.department) }}
+                    </div>                  
                     <div class="form-group">
                         {{ form_row(form.profilepicture) }}
                     </div>                                        

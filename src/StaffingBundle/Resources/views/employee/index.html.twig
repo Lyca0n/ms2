@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block title %}CallcenterBundle:Employee:index{% endblock %}
+{% block title %}Employee:index{% endblock %}
 
 {% block body %}
 
@@ -17,12 +17,12 @@
             <table id="employee" class="table table-striped">
                 <thead>
                     <tr>
-                        <th> employee ID </th>
-                        <th> ignition ID </th>
+                        <th> ID </th>
                         <th> firstname </th>
                         <th> middlename </th>
                         <th> lastname </th>
                         <th> position</th>
+                        <th> department</th>
                         <th> hire date </th>
                         <th> supervised by </th>
                         <th> Responsible for </th>
@@ -32,12 +32,12 @@
                 <tbody>
                     {% for employee in staff %}
                         <tr>
-                            <td>{{employee.mexid}}</td>
-                            <td>{{employee.ignitionid}}</td>
+                            <td>{{employee.id}}</td>
                             <td>{{employee.firstname}}</td>
                             <td>{{employee.middlename}}</td>
                             <td>{{employee.lastname}}</td>
                             <td>{% if employee.position %}{{employee.position.name }}{% endif %}</td>                           
+                            <td>{% if employee.department %}{{employee.department.name }}{% endif %}</td>              
                             <td>{{employee.hiredate|date("m/d/Y") }}</td>
                             <td>{% if employee.supervisor %}{{employee.supervisor.firstname }}&nbsp;{{employee.supervisor.lastname}}{% endif %}</td> 
                             <td>

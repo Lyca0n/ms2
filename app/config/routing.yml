@@ -1,8 +1,3 @@
-scheduling:
-    resource: "@SchedulingBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
@@ -16,4 +11,8 @@ staffing:
 
 ticket:
     resource: "@TicketBundle/Resources/config/routing.yml"
-    
+
+scheduling:
+    resource: "@SchedulingBundle/Controller/"
+    type:     annotation    
+

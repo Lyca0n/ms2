@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}MIS{% endblock %}</title>
+        <title>{% block title %} APEX MIS{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="files/favicon.ico" />
     <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -96,12 +96,12 @@
                                 <ul class="dropdown-menu" role="menu">                                    
                                     <li><a href="{{ url('employee') }}">Employees</a></li>
                                     <li><a href="{{ url('position') }}">Positions</a>     </li>                                               
-                                    <li><a href="{{ url('workforce') }}">Allocation</a></li>                                          
                                     <li class="dropdown-submenu">
-                                        <a class="test" tabindex="-1" href="#">Departments <span class="caret"></span></a>
+                                        <a class="test" tabindex="-1" href="#">Organization <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="{{url('department')}}">Ticket Queues</a></li>
-                                            <li><a tabindex="-1" href="{{url('segment')}}">Segments</a></li>
+                                            <li><a tabindex="1" href="{{url('department')}}">Departments</a></li>
+                                            <li><a tabindex="0" href="{{url('segment')}}">Segments</a></li>
+                                            <li><a href="{{ url('workforce') }}">Allocation</a></li>      
                                         </ul>
                                     </li>                                    
                                     </li>  

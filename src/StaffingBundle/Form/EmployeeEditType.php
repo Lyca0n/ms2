@@ -27,8 +27,6 @@ class EmployeeEditType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('mexid', TextType::class, array('attr' => array('class' => 'form-control')))
-                ->add('ignitionid', TextType::class, array('attr' => array('class' => 'form-control')))
                 ->add('firstname', TextType::class, array('attr' => array('class' => 'form-control')))
                 ->add('middlename', TextType::class, array('attr' => array('class' => 'form-control'), 'required' => false))
                 ->add('lastname', TextType::class, array('attr' => array('class' => 'form-control')))
@@ -55,9 +53,8 @@ class EmployeeEditType extends AbstractType {
                 ->add('position', EntityType::class, array('multiple' => false, 'class' => 'StaffingBundle\Entity\Position', 'choice_label' => function ($position) {
                         return $position->getJobCode() . ' ' . $position->getName();
                     }, 'attr' => array('class' => 'form-control')))
-                ->add('serviceunit', EntityType::class, array('multiple' => false, 'class' => 'StaffingBundle\Entity\ServiceUnit', 'choice_label' => function ($su) {
-                        return $su->getName();
-                    }, 'attr' => array('class' => 'form-control')));
+                ->add('department', EntityType::class, array('multiple'=> false, 'class' => 'StaffingBundle\Entity\department', 'choice_label' => function ($dept) {
+                        return $dept->getName(); },'attr' => array('class'=>'form-control')));
     }
 
     public function configureOptions(OptionsResolver $resolver) {

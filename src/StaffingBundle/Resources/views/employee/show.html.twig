@@ -26,16 +26,15 @@
                 </div>
                 <table id="users" class="table table-striped">
                     <thead>
-                        <tr>
-                            <th> employee ID </th>
-                            <th> Ignition ID </th>
+                        <tr>    
+                            <th>ID</th>
                             <th> Name </th>
                             <th> Hire date </th>
                             <th> user ID </th>
                             <th> Supervisor </th>
                             <th> Subordinates </th>
                             <th> Position </th>
-                            <th> Service unit </th>
+                            <th> Department </th>
                             <th> Is active </th>    
                             <th> Is full time </th>                                
                             <th> Created at </th>
@@ -45,8 +44,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ employee.mexid }}</td>
-                            <td>{{ employee.ignitionid }}</td>                                
+                            <td>{{ employee.id }}</td>
                             <td>{{ employee.firstname }} &nbsp;{{ employee.lastname }}</td>
                             <td>{{ employee.hiredate|date("m/d/Y")}}</td>
                             <td>{% if employee.user %}{{employee.user.username }}{% endif %}</td>
@@ -68,7 +66,7 @@
                                 {% endif %}                                        
                             </td>     
                             <td>{% if employee.position %}{{employee.position.name }}{% endif %}</td>    
-                            <td>{% if employee.serviceunit %}{{employee.serviceunit.name }}{% endif %}</td>    
+                            <td>{% if employee.department %}{{employee.department.name }}{% endif %}</td>    <th> position</th>
                             <td>{{employee.isActive ? 'Yes':'No'}}</td>                            
                             <td>{{employee.isFulltime ? 'Yes':'No'}}</td>                               
                             <td>{{employee.createdAt|date("m/d/Y") }}</td>

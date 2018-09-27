@@ -26,7 +26,7 @@ class ScheduleBlock
      *
      * @ORM\Column(name="text", type="string", length=255)
      */
-    private $text;
+    private $name;
 
 
     /**

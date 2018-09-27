@@ -28,7 +28,7 @@ class EmployeeController extends Controller {
     public function createAction(Request $request) {
         $emp = new Employee();
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(EmployeeType::class, $emp);
+        $form = $this->createForm(EmployeeType::class, $emp, ["create"]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $emp->getProfilePicture();

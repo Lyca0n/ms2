@@ -99,7 +99,7 @@ class UserController extends Controller {
                 $em->flush();
                 return $this->redirect($this->generateUrl('employee'));
             }
-            return $this->render('AuthBundle:User:profile.html.twig', array(
+            return $this->render('StaffingBundle:employee:create.html.twig', array(
                     'form' => $form->createView(),
                     'userid' => $id
             ));

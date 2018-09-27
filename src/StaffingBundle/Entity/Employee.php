@@ -12,8 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="employee")
  * @ORM\Entity(repositoryClass="StaffingBundle\Repository\EmployeeRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity("mexId")
- * @UniqueEntity("ignitionId") 
  */
 class Employee
 {
@@ -25,28 +23,13 @@ class Employee
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     * @Assert\Length(min=4)
-     * @ORM\Column(name="mexId", type="string", length=6, unique=true, nullable=true)
-     * @Assert\Length(max=10)
-     */
-    private $mexId;
-
-    /**
-     * @var string
-     * @Assert\Length(max=8)
-     * @Assert\Length(min=8)
-     * @ORM\Column(name="ignitionId", type="string", length=8, unique=true)
-     */
-    private $ignitionId;
     
     /**
      * @Assert\File(
      *     maxSize = "7M",
      *     mimeTypes = {"image/jpeg", "image/jpeg", "image/png"},
-     *     mimeTypesMessage = "Please upload a valid image(.jped,.jpg,.png)"
+     *     mimeTypesMessage = "Please upload a valid image(.jped,.jpg,.png)",
+     *     groups = {"create"}
      * )    
      * @ORM\Column(type="string", length=240, nullable=true)
      */
@@ -177,54 +160,6 @@ class Employee
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set mexId
-     *
-     * @param string $mexId
-     *
-     * @return Employee
-     */
-    public function setMexId($mexId)
-    {
-        $this->mexId = $mexId;
-
-        return $this;
-    }
-
-    /**
-     * Get mexId
-     *
-     * @return string
-     */
-    public function getMexId()
-    {
-        return $this->mexId;
-    }
-
-    /**
-     * Set ignitionId
-     *
-     * @param string $ignitionId
-     *
-     * @return Employee
-     */
-    public function setIgnitionId($ignitionId)
-    {
-        $this->ignitionId = $ignitionId;
-
-        return $this;
-    }
-
-    /**
-     * Get ignitionId
-     *
-     * @return string
-     */
-    public function getIgnitionId()
-    {
-        return $this->ignitionId;
     }
 
     /**
@@ -544,4 +479,29 @@ class Employee
     {
         return $this->isFulltime;
     }
+    
+
+    /**
+     * Set department
+     *
+     * @param \StaffingBundle\Entity\Department $department
+     *
+     * @return Employee
+     */
+    public function setDepartment(\StaffingBundle\Entity\Department $department = null)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get $department
+     *
+     * @return \StaffingBundle\Entity\Department
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }    
 }
