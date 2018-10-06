@@ -59,6 +59,13 @@ class Employee
     private $lastName;
 
     /**
+     * @var string
+     * @Assert\Choice({"Male","Female","Other"})
+     * @ORM\Column(name="gender", type="string")
+     */
+    private $gender;    
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="hireDate", type="datetime", nullable=false)
@@ -233,6 +240,30 @@ class Employee
     {
         return $this->lastName;
     }
+    
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     *
+     * @return string
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }    
 
     /**
      * Set hireDate

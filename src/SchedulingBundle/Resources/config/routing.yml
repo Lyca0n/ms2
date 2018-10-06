@@ -1,0 +1,6 @@
+schedule:
+#    path:     /
+#    defaults: { _controller: AuthBundle:Default:index }
+
+    resource: "@SchedulingBundle/Controller/"
+    type: annotation

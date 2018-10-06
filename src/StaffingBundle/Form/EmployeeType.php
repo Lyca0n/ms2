@@ -30,6 +30,11 @@ class EmployeeType extends AbstractType {
                 ->add('firstname', TextType::class, array('attr' => array('class' => 'form-control')))
                 ->add('middlename', TextType::class, array('attr' => array('class' => 'form-control'), 'required' => false))
                 ->add('lastname', TextType::class, array('attr' => array('class' => 'form-control')))
+                ->add('gender',  ChoiceType::class, array(
+                    'attr' => array('class' => 'form-control'),
+                    'choices'   => array('Male' => 'Male', 'Female' => 'Female', 'other' => 'other'),
+                    'required'  => false,
+                ))
                 ->add('isactive', ChoiceType::class, array(
                     'attr' => array('class' => 'form-control'),
                     'label' => 'Is this Employee active?',

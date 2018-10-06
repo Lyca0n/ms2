@@ -66,7 +66,7 @@ class TicketListener {
           ->setFrom('cs.operations.desk@autozone.com')
           ->setTo($ticket->getCreatedBy()->getEmail())
           ->setBody(
-          $this->twig->render('TicketBundle:email:ticket_update.html.twig', array(
+          $this->twig->render('TicketBundle:Email:ticket_update.html.twig', array(
           'ticket' => $ticket)), 'text/html');
           $this->mailer->send($message);
           } 

@@ -12,15 +12,14 @@
                 <div class="panel-heading">profile</div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-md-offset-3">
                             {% if employee.profilePicture %}
-                                <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/employee/' ~employee.profilePicture)}}"></div>
+                                <div class="panel-heading"><img class="img-thumbnail img-responsive img-circle" src="{{asset('files/employee/' ~employee.profilePicture)}}"></div>
                             {% else %}
                                 <div class="panel-heading"><img class="img-thumbnail img-responsive" src="{{asset('files/default.png')}}"></div>
                             {% endif %}                               
                         </div>
-                        <div class="col-md-6">                            
-                        </div>
+                   
                     </div>
                  
                 </div>
@@ -66,7 +65,7 @@
                                 {% endif %}                                        
                             </td>     
                             <td>{% if employee.position %}{{employee.position.name }}{% endif %}</td>    
-                            <td>{% if employee.department %}{{employee.department.name }}{% endif %}</td>    <th> position</th>
+                            <td>{% if employee.department %}{{employee.department.name }}{% endif %}</td>  
                             <td>{{employee.isActive ? 'Yes':'No'}}</td>                            
                             <td>{{employee.isFulltime ? 'Yes':'No'}}</td>                               
                             <td>{{employee.createdAt|date("m/d/Y") }}</td>
