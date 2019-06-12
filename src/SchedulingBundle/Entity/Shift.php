@@ -54,7 +54,7 @@ class Shift
     /**
      * @var ArrayCollection $schedules
      * 
-     * @ORM\ManyToMany(targetEntity="SchedulingBundle\Entity\Schedules", inversedBy="shifts")
+     * @ORM\ManyToMany(targetEntity="SchedulingBundle\Entity\Schedule", inversedBy="shifts")
      * @ORM\JoinTable(name="shift_schedule",
      *     joinColumns={@ORM\JoinColumn(name="shift_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="schedule_id", referencedColumnName="id")}

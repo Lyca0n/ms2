@@ -38,7 +38,7 @@ class Schedule
     /**
      * @var ArrayCollection $schedules
      * 
-     * @ORM\ManyToMany(targetEntity="SchedulingBundle\Entity\Breaks", inversedBy="schedules")
+     * @ORM\ManyToMany(targetEntity="SchedulingBundle\Entity\ScheduleBreak", inversedBy="schedules")
      * @ORM\JoinTable(name="schedule_break",
      *     joinColumns={@ORM\JoinColumn(name="schedule_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="break_id", referencedColumnName="id")}

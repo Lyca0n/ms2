@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="break")
  * @ORM\Entity(repositoryClass="SchedulingBundle\Repository\BreakRepository")
  */
-class Break
+class ScheduleBreak
 {
     /**
      * @var int
@@ -41,6 +41,14 @@ class Break
      * @ORM\Column(name="paid", type="boolean")
      */
     private $paid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tag", type="string")
+     */
+    private $tag;
+    
 
      /**
      * 
@@ -136,5 +144,29 @@ class Break
     {
         return $this->paid;
     }
+
+    /**
+     * Set tag
+     *
+     * @param string $tag
+     *
+     * @return Break
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }    
 }
 
